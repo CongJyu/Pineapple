@@ -1,0 +1,34 @@
+Date : 2021-12-14 16:46:08
+Directory : /Users/rainchen/CodingSpace/Library-cli
+Total : 7 files,  509 codes, 93 comments, 64 blanks, all 666 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |          7 |        509 |         93 |         64 |        666 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                            | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                               |          7 |        509 |         93 |         64 |        666 |
+| src                                                             |          7 |        509 |         93 |         64 |        666 |
+| src/Header                                                      |          3 |         49 |         24 |         24 |         97 |
+| src/Source                                                      |          4 |        460 |         69 |         40 |        569 |
++-----------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                        | language | code       | comment    | blank      | total      |
++-----------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/rainchen/CodingSpace/Library-cli/src/Header/commandn.hpp | C++      |         21 |          9 |          9 |         39 |
+| /Users/rainchen/CodingSpace/Library-cli/src/Header/commands.hpp | C++      |         20 |          9 |          9 |         38 |
+| /Users/rainchen/CodingSpace/Library-cli/src/Header/welcome.hpp  | C++      |          8 |          6 |          6 |         20 |
+| /Users/rainchen/CodingSpace/Library-cli/src/Source/commandn.cpp | C++      |        124 |         15 |         10 |        149 |
+| /Users/rainchen/CodingSpace/Library-cli/src/Source/commands.cpp | C++      |        229 |         27 |         12 |        268 |
+| /Users/rainchen/CodingSpace/Library-cli/src/Source/main.cpp     | C++      |         92 |         21 |         14 |        127 |
+| /Users/rainchen/CodingSpace/Library-cli/src/Source/welcome.cpp  | C++      |         15 |          6 |          4 |         25 |
+| Total                                                           |          |        509 |         93 |         64 |        666 |
++-----------------------------------------------------------------+----------+------------+------------+------------+------------+
