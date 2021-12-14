@@ -31,7 +31,4 @@ struct nusProfile {
 
 void commands(string);
 
-//  superuser log
-int sulog(string, string);
-
 #endif /* commands_hpp */

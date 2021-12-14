@@ -6,6 +6,8 @@
 //
 
 #include "commands.hpp"
+#include "log4me.hpp"
+
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -15,13 +17,12 @@ using namespace std;
 
 fstream checkbook;
 fstream profile;
-fstream log;
 
 digiLibrary book[10000];
 nusProfile users[10000];
 
 void commands(string usr) {
-    sulog(usr, "first");
+    ulog(usr, "first");
     while (true) {
         cout << usr << "@digiLibrary ~ # ";
         string cmd;
@@ -29,11 +30,10 @@ void commands(string usr) {
         if (cmd == "quit") {
             //  quit this cli
             cout << "🍍 Goodbye!" << endl;
-            sulog(usr, "quit");
+            ulog(usr, "quit");
             break;
         } else if (cmd == "help") {
             //  helpful tips
-            //  TODO: add 'search' command
             //  TODO: add 'delbook' command
             //  TODO: add 'chgbook' command
             cout << "🍍 Welcome to digiLibrary. See the commands below:" << endl;
@@ -50,12 +50,17 @@ void commands(string usr) {
             cout << "Book Management:" << endl;
             cout << "    'listbook' -- list all the books." << endl;
             cout << "    'addbook <Bookname> <ISBN/ISSN> <Author> <Class> <isBorrow>' -- add a book to library." << endl;
-            sulog(usr, "help");
+            cout << "    'search' -- search a book from library." << endl;
+            cout << "        'search -n <Bookname>'" << endl;
+            cout << "        'search -i <ISBN/ISSN>'" << endl;
+            cout << "        'search -a <Author>'" << endl;
+            cout << "        'search -l <Class>'" << endl;
+            ulog(usr, "help");
         } else if (cmd == "version") {
             cout << "🍍 digiLibrary v1.0.0" << endl;
             cout << "Build Dec 2021." << endl;
             cout << "Made by Rain Chen and Zheng ShuYao." << endl;
-            sulog(usr, "version");
+            ulog(usr, "version");
         } else if (cmd == "listbook") {
             //  list all the books
             checkbook.open("/Users/rainchen/digiLibrary/books.txt");
@@ -64,7 +69,7 @@ void commands(string usr) {
                 checkbook >> book[cnt].bname >> book[cnt].isbn >> book[cnt].author >> book[cnt].location >> book[cnt].borrow;
                 cnt++;
             }
-            cnt--;
+            cnt--;    //  fix the number of books, remove the impact of empty line
             for (int i = 0; i < 80; i++) {
                 cout << "-";
             }
@@ -77,7 +82,7 @@ void commands(string usr) {
                 cout << "-";
             }
             cout << endl;
-            sulog(usr, "listbook");
+            ulog(usr, "listbook");
             cout << "🍍 All books listed. Done!" << endl;
         } else if (cmd == "passwd") {
             //  change username and password
@@ -94,7 +99,7 @@ void commands(string usr) {
             cin >> newpwd;
             profile << newusr << " " << newpwd;
             profile.close();
-            sulog(usr, "passwd");
+            ulog(usr, "passwd");
             cout << "🍍 Profile updated!" << endl;
             cout << "Use your new username and password to login next time." << endl;
         } else if (cmd == "useradd") {
@@ -114,7 +119,7 @@ void commands(string usr) {
             cin >> npwd;
             profile << nusr << " " << npwd << endl;
             profile.close();
-            sulog(usr, "useradd");
+            ulog(usr, "useradd");
             cout << "🍍 New normal user added! Done!" << endl;
         } else if (cmd == "listuser") {
             //  list all normal users, not super users
@@ -122,7 +127,7 @@ void commands(string usr) {
                 cout << "No current normal user. Initializing..." << endl;
                 ofstream outfile("/Users/rainchen/digiLibrary/nuserinfo.digilib");
                 profile.close();
-                sulog(usr, "listuser");
+                ulog(usr, "listuser");
                 cout << "🍍 No valid users. Done!" << endl;
             } else {
                 profile.open("/Users/rainchen/digiLibrary/nuserinfo.digilib");
@@ -131,7 +136,7 @@ void commands(string usr) {
                     profile >> users[cnt].nusername >> users[cnt].npassword;
                     cnt++;
                 }
-                cnt--;
+                cnt--;    //  fix the number of books, remove the impact of empty line
                 profile.close();
                 for (int i = 0; i < 80; i++) {
                     cout << "-";
@@ -144,8 +149,8 @@ void commands(string usr) {
                     cout << "-";
                 }
                 cout << endl;
-                sulog(usr, "listuser");
-                cout << "🍍 " << cnt << " user(s) total. Done!" << endl;
+                ulog(usr, "listuser");
+                cout << "🍍 " << cnt << " user(s) in total. Done!" << endl;
             }
         } else if (cmd == "resetpwd") {
             //  set specific normal user's password to default
@@ -153,7 +158,7 @@ void commands(string usr) {
                 cout << "No current normal user. Initializing..." << endl;
                 ofstream outfile("/Users/rainchen/digiLibrary/nuserinfo.digilib");
                 profile.close();
-                sulog(usr, "resetpwd");
+                ulog(usr, "resetpwd");
                 cout << "🍍 No valid users. Done!" << endl;
             } else {
                 //  reset user -- the username whose password will be reset
@@ -170,10 +175,10 @@ void commands(string usr) {
                     }
                     cnt++;
                 }
-                cnt--;
+                cnt--;    //  fix the number of books, remove the impact of empty line
                 profile.close();
                 if (mark == 0) {
-                    sulog(usr, "resetpwd");
+                    ulog(usr, "resetpwd");
                     cout << "🍍 There is no user '" << resetuser << "'. Done." << endl;
                 } else {
                     profile.open("/Users/rainchen/digiLibrary/nuserinfo.digilib", ios_base::out|ios_base::trunc);
@@ -185,7 +190,7 @@ void commands(string usr) {
                         }
                     }
                     profile.close();
-                    sulog(usr, "resetpwd");
+                    ulog(usr, "resetpwd");
                     cout << "🍍 '" << resetuser << "' password reseted to default. Done." << endl;
                 }
             }
@@ -199,7 +204,7 @@ void commands(string usr) {
             checkbook.open("/Users/rainchen/digiLibrary/books.txt", ios_base::app);
             checkbook << newbookname << " " << newbookisbn << " " << newbookauthor << " " << newbooklocation << " " << newbookborrow << endl;
             checkbook.close();
-            sulog(usr, "addbook");
+            ulog(usr, "addbook");
             cout << "🍍 " << "Done. The book '" << newbookname << "' is added." << endl;
         } else if (cmd == "clearlog") {
             //  clear log info
@@ -211,57 +216,61 @@ void commands(string usr) {
             }
             profile.open("/Users/rainchen/digiLibrary/digi.log", ios_base::out|ios_base::trunc);
             profile.close();
-            sulog(usr, "clearlog");
+            ulog(usr, "clearlog");
             cout << "🍍 Done. All log info cleared." << endl;
+        } else if (cmd == "search") {
+            //  search books
+            cout << "Loading books...";
+            char c[2];    //  receive command
+            checkbook.open("/Users/rainchen/digiLibrary/books.txt");
+            int cnt = 0;
+            while (checkbook.eof() != 1) {
+                checkbook >> book[cnt].bname >> book[cnt].isbn >> book[cnt].author >> book[cnt].location >> book[cnt].borrow;
+                cnt++;
+            }
+            cnt--;    //  fix the number of books, remove the impact of empty line
+            cout << "Ready." << endl;
+            string searchbookname;
+            string searchbookisbn;
+            string searchbookauth;
+            cin >> c;
+            cout << "Searching..." << endl;
+            for (int i = 0; i < 80; i++) {
+                cout << "-";
+            }
+            cout << endl;
+            switch (c[1]) {
+                case 'n':
+                    cin >> searchbookname;
+                    for (int i = 0; i < cnt; i++) {
+                        if (book[i].bname.find(searchbookname) != string::npos) {
+                            cout << book[i].bname << " " << book[i].isbn << " " << book[i].author << " " << book[i].location << " " << book[i].borrow << endl;
+                        }
+                    }
+                    break;
+                case 'i':
+                    cin >> searchbookisbn;
+                    for (int i = 0; i < cnt; i++) {
+                        if (book[i].isbn.find(searchbookisbn) != string::npos) {
+                            cout << book[i].bname << " " << book[i].isbn << " " << book[i].author << " " << book[i].location << " " << book[i].borrow << endl;
+                        }
+                    }
+                    break;
+                case 'a':
+                    cin >> searchbookauth;
+                    for (int i = 0; i < cnt; i++) {
+                        if (book[i].author.find(searchbookauth) != string::npos) {
+                            cout << book[i].bname << " " << book[i].isbn << " " << book[i].author << " " << book[i].location << " " << book[i].borrow << endl;
+                        }
+                    }
+                    break;
+            }
+            for (int i = 0; i < 80; i++) {
+                cout << "-";
+            }
+            cout << endl;
+            cout << "🍍 Searching done. The results are listed above." << endl;
         }
     }
     return;
 }
-
-//  the log module -- write down the logs
-int sulog(string usr, string command) {
-    //  get time
-    time_t timep;
-    time(&timep);
-    char tmp[256];
-    strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S", localtime(&timep));
-    //  is the log file existed
-    if (!(filesystem::exists("/Users/rainchen/digiLibrary/digi.log"))) {
-        cout << "Initializing log..." << endl;
-        ofstream outfile("/Users/rainchen/digiLibrary/digi.log");
-        log.close();
-    }
-    
-    //  open log file
-    log.open("/Users/rainchen/digiLibrary/digi.log", ios_base::app);
-    
-    //  print log
-    if (command == "first") {
-        log << "[" << tmp << "] " << "'" << usr << "' login." << endl;
-    } else if (command == "help") {
-        log << "[" << tmp << "] " << "'" << usr << "' show help." << endl;
-    } else if (command == "quit") {
-        log << "[" << tmp << "] " << "'" << usr << "' quit digiLibrary-cli." << endl;
-    } else if (command == "passwd") {
-        log << "[" << tmp << "] " << "'" << usr << "' change username and password." << endl;
-    } else if (command == "useradd") {
-        log << "[" << tmp << "] " << "'" << usr << "' add a normal user." << endl;
-    } else if (command == "listuser") {
-        log << "[" << tmp << "] " << "'" << usr << "' show all normal users." << endl;
-    } else if (command == "resetpwd") {
-        log << "[" << tmp << "] " << "'" << usr << "' reset a normal user's password." << endl;
-    } else if (command == "listbook") {
-        log << "[" << tmp << "] " << "'" << usr << "' show all books." << endl;
-    } else if (command == "version") {
-        log << "[" << tmp << "] " << "'" << usr << "' show version." << endl;
-    } else if (command == "addbook") {
-        log << "[" << tmp << "] " << "'" << usr << "' add a book." << endl;
-    } else if (command == "clearlog") {
-        log << "[" << tmp << "] " << "'" << usr << "' clear log info." << endl;
-    }
-    
-    //  close log file
-    log.close();
-    return 0;
-}
-

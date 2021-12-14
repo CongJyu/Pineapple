@@ -6,6 +6,8 @@
 //
 
 #include "commandn.hpp"
+#include "log4me.hpp"
+
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -15,13 +17,12 @@ using namespace std;
 
 fstream bookn;
 fstream profilen;
-fstream nlog;
 
 nudigiLibrary nbook[10000];
 nuserprof nus[10000];
 
 void commandn(string usr) {
-    nulog(usr, "first");
+    ulog(usr, "first");
     while (true) {
         cout << usr << "@digiLibrary ~ % ";
         string cmd;
@@ -29,7 +30,7 @@ void commandn(string usr) {
         if (cmd == "quit") {
             //  quit this cli
             cout << "🍍 Goodbye!" << endl;
-            nulog(usr, "quit");
+            ulog(usr, "quit");
             break;
         } else if (cmd == "help") {
             cout << "🍍 Welcome to digiLibrary. See the commands below:" << endl;
@@ -38,15 +39,21 @@ void commandn(string usr) {
             cout << "    'help' -- get help." << endl;
             cout << "    'quit' -- quit digiLibrary." << endl;
             cout << "Account settings:" << endl;
-            cout << "    'passwd' -- change your password." << endl;
+            cout << "    'passwd' -- change and set your password." << endl;
             cout << "Book Management:" << endl;
             cout << "    'listbook' -- list all the books." << endl;
-            nulog(usr, "help");
+            cout << "    'addbook <Bookname> <ISBN/ISSN> <Author> <Class> <isBorrow>' -- add a book to library." << endl;
+            cout << "    'search' -- search a book from library." << endl;
+            cout << "        'search -n <Bookname>'" << endl;
+            cout << "        'search -i <ISBN/ISSN>'" << endl;
+            cout << "        'search -a <Author>'" << endl;
+            cout << "        'search -l <Class>'" << endl;
+            ulog(usr, "help");
         } else if (cmd == "version") {
             cout << "🍍 digiLibrary v1.0.0" << endl;
             cout << "Build Dec 2021." << endl;
             cout << "Made by Rain Chen and Zheng ShuYao." << endl;
-            nulog(usr, "version");
+            ulog(usr, "version");
         } else if (cmd == "listbook") {
             //  list all the books
             bookn.open("/Users/rainchen/digiLibrary/books.txt");
@@ -68,7 +75,7 @@ void commandn(string usr) {
                 cout << "-";
             }
             cout << endl;
-            nulog(usr, "listbook");
+            ulog(usr, "listbook");
             cout << "🍍 All books listed. Done!" << endl;
         } else if (cmd == "passwd") {
             //  change password
@@ -103,46 +110,62 @@ void commandn(string usr) {
                 }
             }
             profilen.close();
-            nulog(usr, "passwd");
+            ulog(usr, "passwd");
             cout << "🍍 Done. Your password has been changed." << endl;
+        } else if (cmd == "search") {
+            //  search books
+            cout << "Loading books...";
+            char c[2];    //  receive command
+            bookn.open("/Users/rainchen/digiLibrary/books.txt");
+            int cnt = 0;
+            while (bookn.eof() != 1) {
+                bookn >> nbook[cnt].bname >> nbook[cnt].isbn >> nbook[cnt].author >> nbook[cnt].location >> nbook[cnt].borrow;
+                cnt++;
+            }
+            cnt--;    //  fix the number of books, remove the impact of empty line
+            cout << "Ready." << endl;
+            string searchbookname;
+            string searchbookisbn;
+            string searchbookauth;
+            cin >> c;
+            cout << "Searching..." << endl;
+            for (int i = 0; i < 80; i++) {
+                cout << "-";
+            }
+            cout << endl;
+            switch (c[1]) {
+                case 'n':
+                    cin >> searchbookname;
+                    for (int i = 0; i < cnt; i++) {
+                        if (nbook[i].bname.find(searchbookname) != string::npos) {
+                            cout << nbook[i].bname << " " << nbook[i].isbn << " " << nbook[i].author << " " << nbook[i].location << " " << nbook[i].borrow << endl;
+                        }
+                    }
+                    break;
+                case 'i':
+                    cin >> searchbookisbn;
+                    for (int i = 0; i < cnt; i++) {
+                        if (nbook[i].isbn.find(searchbookisbn) != string::npos) {
+                            cout << nbook[i].bname << " " << nbook[i].isbn << " " << nbook[i].author << " " << nbook[i].location << " " << nbook[i].borrow << endl;
+                        }
+                    }
+                    break;
+                case 'a':
+                    cin >> searchbookauth;
+                    for (int i = 0; i < cnt; i++) {
+                        if (nbook[i].author.find(searchbookauth) != string::npos) {
+                            cout << nbook[i].bname << " " << nbook[i].isbn << " " << nbook[i].author << " " << nbook[i].location << " " << nbook[i].borrow << endl;
+                        }
+                    }
+                    break;
+            }
+            for (int i = 0; i < 80; i++) {
+                cout << "-";
+            }
+            cout << endl;
+            ulog(usr, "search");
+            cout << "🍍 Searching done. The results are listed above." << endl;
         }
     }
     return;
-}
-
-//  the log module -- write down the logs
-int nulog(string usr, string command) {
-    //  get time
-    time_t timep;
-    time(&timep);
-    char tmp[256];
-    strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S", localtime(&timep));
-    //  is the log file existed
-    if (!(filesystem::exists("/Users/rainchen/digiLibrary/digi.log"))) {
-        cout << "Initializing log..." << endl;
-        ofstream outfile("/Users/rainchen/digiLibrary/digi.log");
-        nlog.close();
-    }
-    
-    //  open log file
-    nlog.open("/Users/rainchen/digiLibrary/digi.log", ios_base::app);
-    
-    //  print log
-    if (command == "first") {
-        nlog << "[" << tmp << "] " << "'" << usr << "' login." << endl;
-    } else if (command == "help") {
-        nlog << "[" << tmp << "] " << "'" << usr << "' show help." << endl;
-    } else if (command == "quit") {
-        nlog << "[" << tmp << "] " << "'" << usr << "' quit digiLibrary-cli." << endl;
-    } else if (command == "listbook") {
-        nlog << "[" << tmp << "] " << "'" << usr << "' show all books." << endl;
-    } else if (command == "version") {
-        nlog << "[" << tmp << "] " << "'" << usr << "' show version." << endl;
-    } else if (command == "passwd") {
-        nlog << "[" << tmp << "] " << "'" << usr << "' changed password." << endl;
-    }
-    
-    //  close log file
-    nlog.close();
-    return 0;
 }

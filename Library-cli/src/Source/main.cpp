@@ -18,6 +18,7 @@
 #include "welcome.hpp"
 #include "commands.hpp"
 #include "commandn.hpp"
+#include "log4me.hpp"
 
 //  namespace std and some C++17 features
 using namespace std;

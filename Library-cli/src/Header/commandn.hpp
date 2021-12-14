@@ -32,7 +32,4 @@ struct nuserprof {
 
 void commandn(string);
 
-//  normal user log
-int nulog(string, string);
-
 #endif /* commandn_hpp */

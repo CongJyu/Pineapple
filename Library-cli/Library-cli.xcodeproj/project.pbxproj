@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F0539A012768D2EB004DF3E0 /* log4me.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F05399FF2768D2EB004DF3E0 /* log4me.cpp */; };
 		F0E4607D27674E5500A9A18B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0E4607C27674E5500A9A18B /* main.cpp */; };
 		F0E4608527675A7A00A9A18B /* welcome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0E4608327675A7A00A9A18B /* welcome.cpp */; };
 		F0E460882767760600A9A18B /* commands.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0E460862767760600A9A18B /* commands.cpp */; };
@@ -26,6 +27,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F05399FF2768D2EB004DF3E0 /* log4me.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = log4me.cpp; sourceTree = "<group>"; };
+		F0539A002768D2EB004DF3E0 /* log4me.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = log4me.hpp; sourceTree = "<group>"; };
 		F0E4607927674E5500A9A18B /* Library-cli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Library-cli"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0E4607C27674E5500A9A18B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F0E4608327675A7A00A9A18B /* welcome.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = welcome.cpp; sourceTree = "<group>"; };
@@ -51,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				F0E4607C27674E5500A9A18B /* main.cpp */,
+				F05399FF2768D2EB004DF3E0 /* log4me.cpp */,
 				F0E460862767760600A9A18B /* commands.cpp */,
 				F0E60B36276852C500B89741 /* commandn.cpp */,
 				F0E4608327675A7A00A9A18B /* welcome.cpp */,
@@ -61,6 +65,7 @@
 		F034713527687BF8006E8D7C /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				F0539A002768D2EB004DF3E0 /* log4me.hpp */,
 				F0E60B37276852C500B89741 /* commandn.hpp */,
 				F0E460872767760600A9A18B /* commands.hpp */,
 				F0E4608427675A7A00A9A18B /* welcome.hpp */,
@@ -152,6 +157,7 @@
 			files = (
 				F0E4608527675A7A00A9A18B /* welcome.cpp in Sources */,
 				F0E460882767760600A9A18B /* commands.cpp in Sources */,
+				F0539A012768D2EB004DF3E0 /* log4me.cpp in Sources */,
 				F0E60B38276852C500B89741 /* commandn.cpp in Sources */,
 				F0E4607D27674E5500A9A18B /* main.cpp in Sources */,
 			);

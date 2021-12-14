@@ -1,0 +1,12 @@
+"filename", "language", "Markdown", "C++", "comment", "blank", "total"
+"/Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Header/commandn.hpp", "C++", 0, 20, 8, 8, 36
+"/Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Header/commands.hpp", "C++", 0, 19, 8, 8, 35
+"/Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Header/log4me.hpp", "C++", 0, 11, 7, 6, 24
+"/Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Header/welcome.hpp", "C++", 0, 8, 6, 6, 20
+"/Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Source/commandn.cpp", "C++", 0, 155, 10, 7, 172
+"/Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Source/commands.cpp", "C++", 0, 248, 21, 8, 277
+"/Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Source/log4me.cpp", "C++", 0, 43, 12, 8, 63
+"/Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Source/main.cpp", "C++", 0, 93, 21, 14, 128
+"/Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Source/welcome.cpp", "C++", 0, 15, 6, 4, 25
+"/Users/rainchen/CodingSpace/Pineapple/README.md", "Markdown", 2, 0, 0, 2, 4
+"Total", "-", 2, 612, 99, 71, 784
