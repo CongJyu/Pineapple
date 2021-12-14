@@ -265,6 +265,7 @@ void commands(string usr) {
                     }
                     break;
             }
+            checkbook.close();
             for (int i = 0; i < 80; i++) {
                 cout << "-";
             }

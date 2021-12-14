@@ -159,6 +159,7 @@ void commandn(string usr) {
                     }
                     break;
             }
+            bookn.close();
             for (int i = 0; i < 80; i++) {
                 cout << "-";
             }
