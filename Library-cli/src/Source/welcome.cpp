@@ -7,10 +7,8 @@
 
 #include "welcome.hpp"
 #include <iostream>
-
 using namespace std;
-
-void welcome() {
+void Welcome::you() {
     cout << endl;
     cout << " dP  oo  dP                                                " << endl;
     cout << " 88      88                                                " << endl;

@@ -23,7 +23,6 @@
 //  namespace std and some C++17 features
 using namespace std;
 
-
 //  the account structure -- store user accounts
 struct accountInfo {
     string username;
@@ -38,7 +37,8 @@ int usrmode = 0;
 
 int main() {
     //  display welcome messages
-    welcome();
+    Welcome welcome;
+    welcome.you();
     
     //  check the account info
     if (!(filesystem::exists("/Users/rainchen/digiLibrary/admininfo.digilib"))) {
@@ -66,7 +66,7 @@ int main() {
     char login;
     cout << "'s' -- administrator" << endl;
     cout << "'n' -- normal user" << endl;
-    cout << "root@digiLib ~ # ";
+    cout << "root@digiLib ~ 😅 ";
     cin >> login;
     while (login == 's') {
         cout << "USERNAME:";

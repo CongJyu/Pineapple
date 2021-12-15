@@ -14,6 +14,9 @@
 
 using namespace std;
 
-void welcome();
+class Welcome {
+public:
+    void you();
+};
 
 #endif /* welcome_hpp */

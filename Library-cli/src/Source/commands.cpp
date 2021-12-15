@@ -7,6 +7,7 @@
 
 #include "commands.hpp"
 #include "log4me.hpp"
+#include "countline.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -18,13 +19,10 @@ using namespace std;
 fstream checkbook;
 fstream profile;
 
-digiLibrary book[10000];
-nusProfile users[10000];
-
 void commands(string usr) {
     ulog(usr, "first");
     while (true) {
-        cout << usr << "@digiLibrary ~ # ";
+        cout << usr << "@digiLibrary ~ 😅 ";
         string cmd;
         cin >> cmd;
         if (cmd == "quit") {
@@ -57,6 +55,7 @@ void commands(string usr) {
             cout << "        'search -l <Class>'" << endl;
             ulog(usr, "help");
         } else if (cmd == "version") {
+            //  show version
             cout << "🍍 digiLibrary v1.0.0" << endl;
             cout << "Build Dec 2021." << endl;
             cout << "Made by Rain Chen and Zheng ShuYao." << endl;
@@ -64,24 +63,37 @@ void commands(string usr) {
         } else if (cmd == "listbook") {
             //  list all the books
             checkbook.open("/Users/rainchen/digiLibrary/books.txt");
-            int cnt = 0;
+            countline("/Users/rainchen/digiLibrary/books.txt");
+            int cnt = countline("/Users/rainchen/digiLibrary/books.txt");
+            digiLibrary * book = new digiLibrary [cnt];
+            int j = 0;
             while (checkbook.eof() != 1) {
-                checkbook >> book[cnt].bname >> book[cnt].isbn >> book[cnt].author >> book[cnt].location >> book[cnt].borrow;
-                cnt++;
+                checkbook >> book[j].bname
+                >> book[j].isbn
+                >> book[j].author
+                >> book[j].location
+                >> book[j].borrow;
+                j++;
             }
-            cnt--;    //  fix the number of books, remove the impact of empty line
+            cnt = j - 1;
+            checkbook.close();
             for (int i = 0; i < 80; i++) {
                 cout << "-";
             }
             cout << endl;
             for (int i = 0; i < cnt; i++) {
-                cout << book[i].bname << " " << book[i].isbn << " " << book[i].author << " " << book[i].location << " " << book[i].borrow;
+                cout << book[i].bname << " "
+                << book[i].isbn << " "
+                << book[i].author << " "
+                << book[i].location << " "
+                << book[i].borrow;
                 cout << endl;
             }
             for (int i = 0; i < 80; i++) {
                 cout << "-";
             }
             cout << endl;
+            delete [] book;
             ulog(usr, "listbook");
             cout << "🍍 All books listed. Done!" << endl;
         } else if (cmd == "passwd") {
@@ -111,7 +123,8 @@ void commands(string usr) {
             } else {
                 cout << "Checking normal user profiles..." << endl;
             }
-            string nusr, npwd;    //  stand for 'normal user' and 'normal password'
+            string nusr, npwd;
+            //  stand for 'normal user' and 'normal password'
             profile.open("/Users/rainchen/digiLibrary/nuserinfo.digilib", ios_base::app);
             cout << "New normal user:";
             cin >> nusr;
@@ -131,12 +144,12 @@ void commands(string usr) {
                 cout << "🍍 No valid users. Done!" << endl;
             } else {
                 profile.open("/Users/rainchen/digiLibrary/nuserinfo.digilib");
-                int cnt = 0;
-                while (profile.eof() != 1) {
-                    profile >> users[cnt].nusername >> users[cnt].npassword;
-                    cnt++;
+                countline("/Users/rainchen/digiLibrary/nuserinfo.digilib");
+                int cnt = countline("/Users/rainchen/digiLibrary/nuserinfo.digilib");
+                nusProfile * users = new nusProfile [cnt];
+                for (int i = 0; i < cnt; i++) {
+                    profile >> users[i].nusername >> users[i].npassword;
                 }
-                cnt--;    //  fix the number of books, remove the impact of empty line
                 profile.close();
                 for (int i = 0; i < 80; i++) {
                     cout << "-";
@@ -150,6 +163,7 @@ void commands(string usr) {
                 }
                 cout << endl;
                 ulog(usr, "listuser");
+                delete [] users;
                 cout << "🍍 " << cnt << " user(s) in total. Done!" << endl;
             }
         } else if (cmd == "resetpwd") {
@@ -167,15 +181,16 @@ void commands(string usr) {
                 profile.open("/Users/rainchen/digiLibrary/nuserinfo.digilib");
                 cout << "Done. Reset whose password(Enter username):";
                 cin >> resetuser;
-                int cnt = 0, mark = 0;
-                while (profile.eof() != 1) {
-                    profile >> users[cnt].nusername >> users[cnt].npassword;
-                    if (users[cnt].nusername == resetuser) {
-                        mark = cnt;
+                int mark = 0;
+                countline("/Users/rainchen/digiLibrary/nuserinfo.digilib");
+                int cnt = countline("/Users/rainchen/digiLibrary/nuserinfo.digilib");
+                nusProfile * users = new nusProfile [cnt];
+                for (int i = 0; i < cnt; i++) {
+                    profile >> users[i].nusername >> users[i].npassword;
+                    if (users[i].nusername == resetuser) {
+                        mark = i;
                     }
-                    cnt++;
                 }
-                cnt--;    //  fix the number of books, remove the impact of empty line
                 profile.close();
                 if (mark == 0) {
                     ulog(usr, "resetpwd");
@@ -184,25 +199,35 @@ void commands(string usr) {
                     profile.open("/Users/rainchen/digiLibrary/nuserinfo.digilib", ios_base::out|ios_base::trunc);
                     for (int i = 0; i < cnt; i++) {
                         if (i == mark) {
-                            profile << users[i].nusername << " " << "123456" << endl;
+                            profile << users[i].nusername
+                            << " " << "123456" << endl;
                         } else {
-                            profile << users[i].nusername << " " << users[i].npassword << endl;
+                            profile << users[i].nusername << " "
+                            << users[i].npassword << endl;
                         }
                     }
                     profile.close();
                     ulog(usr, "resetpwd");
                     cout << "🍍 '" << resetuser << "' password reseted to default. Done." << endl;
                 }
+                delete [] users;
             }
         } else if (cmd == "addbook") {
             //  enter full command here
-            string newbookname, newbookisbn, newbookauthor, newbooklocation, newbookborrow;
-            cin >> newbookname >> newbookisbn >> newbookauthor >> newbooklocation;
+            string newbookname, newbookisbn, newbookauthor;
+            string newbooklocation, newbookborrow;
+            cin >> newbookname
+            >> newbookisbn
+            >> newbookauthor
+            >> newbooklocation;
             cin >> newbookborrow;
-            
             //  open book list
             checkbook.open("/Users/rainchen/digiLibrary/books.txt", ios_base::app);
-            checkbook << newbookname << " " << newbookisbn << " " << newbookauthor << " " << newbooklocation << " " << newbookborrow << endl;
+            checkbook << newbookname << " "
+            << newbookisbn << " "
+            << newbookauthor << " "
+            << newbooklocation << " "
+            << newbookborrow << endl;
             checkbook.close();
             ulog(usr, "addbook");
             cout << "🍍 " << "Done. The book '" << newbookname << "' is added." << endl;
@@ -223,53 +248,69 @@ void commands(string usr) {
             cout << "Loading books...";
             char c[2];    //  receive command
             checkbook.open("/Users/rainchen/digiLibrary/books.txt");
-            int cnt = 0;
+            countline("/Users/rainchen/digiLibrary/books.txt");
+            int cnt = countline("/Users/rainchen/digiLibrary/books.txt");
+            digiLibrary * book = new digiLibrary [cnt];
+            int j = 0;
             while (checkbook.eof() != 1) {
-                checkbook >> book[cnt].bname >> book[cnt].isbn >> book[cnt].author >> book[cnt].location >> book[cnt].borrow;
-                cnt++;
+                checkbook >> book[j].bname
+                >> book[j].isbn
+                >> book[j].author
+                >> book[j].location
+                >> book[j].borrow;
+                j++;
             }
-            cnt--;    //  fix the number of books, remove the impact of empty line
+            cnt = j - 1;
+            checkbook.close();
             cout << "Ready." << endl;
-            string searchbookname;
-            string searchbookisbn;
-            string searchbookauth;
+            string searchbook;
             cin >> c;
             cout << "Searching..." << endl;
             for (int i = 0; i < 80; i++) {
                 cout << "-";
             }
+            cin >> searchbook;
             cout << endl;
             switch (c[1]) {
                 case 'n':
-                    cin >> searchbookname;
                     for (int i = 0; i < cnt; i++) {
-                        if (book[i].bname.find(searchbookname) != string::npos) {
-                            cout << book[i].bname << " " << book[i].isbn << " " << book[i].author << " " << book[i].location << " " << book[i].borrow << endl;
+                        if (book[i].bname.find(searchbook) != string::npos) {
+                            cout << book[i].bname << " "
+                            << book[i].isbn << " "
+                            << book[i].author << " "
+                            << book[i].location << " "
+                            << book[i].borrow << endl;
                         }
                     }
                     break;
                 case 'i':
-                    cin >> searchbookisbn;
                     for (int i = 0; i < cnt; i++) {
-                        if (book[i].isbn.find(searchbookisbn) != string::npos) {
-                            cout << book[i].bname << " " << book[i].isbn << " " << book[i].author << " " << book[i].location << " " << book[i].borrow << endl;
+                        if (book[i].isbn.find(searchbook) != string::npos) {
+                            cout << book[i].bname << " "
+                            << book[i].isbn << " "
+                            << book[i].author << " "
+                            << book[i].location << " "
+                            << book[i].borrow << endl;
                         }
                     }
                     break;
                 case 'a':
-                    cin >> searchbookauth;
                     for (int i = 0; i < cnt; i++) {
-                        if (book[i].author.find(searchbookauth) != string::npos) {
-                            cout << book[i].bname << " " << book[i].isbn << " " << book[i].author << " " << book[i].location << " " << book[i].borrow << endl;
+                        if (book[i].author.find(searchbook) != string::npos) {
+                            cout << book[i].bname << " "
+                            << book[i].isbn << " "
+                            << book[i].author << " "
+                            << book[i].location << " "
+                            << book[i].borrow << endl;
                         }
                     }
                     break;
             }
-            checkbook.close();
             for (int i = 0; i < 80; i++) {
                 cout << "-";
             }
             cout << endl;
+            delete [] book;
             cout << "🍍 Searching done. The results are listed above." << endl;
         }
     }

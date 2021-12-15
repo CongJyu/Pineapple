@@ -1,0 +1,39 @@
+Date : 2021-12-15 10:59:18
+Directory : /Users/rainchen/CodingSpace/Pineapple
+Total : 10 files,  616 codes, 99 comments, 71 blanks, all 786 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |          9 |        614 |         99 |         69 |        782 |
+| Markdown |          1 |          2 |          0 |          2 |          4 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                      | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                         |         10 |        616 |         99 |         71 |        786 |
+| Library-cli                                                               |          9 |        614 |         99 |         69 |        782 |
+| Library-cli/src                                                           |          9 |        614 |         99 |         69 |        782 |
+| Library-cli/src/Header                                                    |          4 |         58 |         29 |         28 |        115 |
+| Library-cli/src/Source                                                    |          5 |        556 |         70 |         41 |        667 |
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                  | language | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Header/commandn.hpp | C++      |         20 |          8 |          8 |         36 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Header/commands.hpp | C++      |         19 |          8 |          8 |         35 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Header/log4me.hpp   | C++      |         11 |          7 |          6 |         24 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Header/welcome.hpp  | C++      |          8 |          6 |          6 |         20 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Source/commandn.cpp | C++      |        156 |         10 |          7 |        173 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Source/commands.cpp | C++      |        249 |         21 |          8 |        278 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Source/log4me.cpp   | C++      |         43 |         12 |          8 |         63 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Source/main.cpp     | C++      |         93 |         21 |         14 |        128 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Source/welcome.cpp  | C++      |         15 |          6 |          4 |         25 |
+| /Users/rainchen/CodingSpace/Pineapple/README.md                           | Markdown |          2 |          0 |          2 |          4 |
+| Total                                                                     |          |        616 |         99 |         71 |        786 |
++---------------------------------------------------------------------------+----------+------------+------------+------------+------------+

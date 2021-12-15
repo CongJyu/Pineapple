@@ -9,6 +9,7 @@
 #define commands_hpp
 
 #include <iostream>
+#include <fstream>
 #include <cstring>
 #include <string>
 
