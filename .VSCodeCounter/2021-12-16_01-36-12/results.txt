@@ -1,0 +1,41 @@
+Date : 2021-12-16 01:36:12
+Directory : /Users/rainchen/CodingSpace/Pineapple
+Total : 12 files,  729 codes, 113 comments, 90 blanks, all 932 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |         11 |        708 |        113 |         72 |        893 |
+| Markdown |          1 |         21 |          0 |         18 |         39 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                       | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                          |         12 |        729 |        113 |         90 |        932 |
+| Library-cli                                                                |         11 |        708 |        113 |         72 |        893 |
+| Library-cli/src                                                            |         11 |        708 |        113 |         72 |        893 |
+| Library-cli/src/Header                                                     |          5 |         70 |         35 |         34 |        139 |
+| Library-cli/src/Source                                                     |          6 |        638 |         78 |         38 |        754 |
++----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                   | language | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Header/commandn.hpp  | C++      |         20 |          8 |          8 |         36 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Header/commands.hpp  | C++      |         20 |          8 |          8 |         36 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Header/countline.hpp | C++      |          8 |          6 |          6 |         20 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Header/log4me.hpp    | C++      |         11 |          7 |          6 |         24 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Header/welcome.hpp   | C++      |         11 |          6 |          6 |         23 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Source/commandn.cpp  | C++      |        184 |         10 |          6 |        200 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Source/commands.cpp  | C++      |        290 |         23 |          6 |        319 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Source/countline.cpp | C++      |         12 |          6 |          3 |         21 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Source/log4me.cpp    | C++      |         43 |         12 |          8 |         63 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Source/main.cpp      | C++      |         94 |         21 |         13 |        128 |
+| /Users/rainchen/CodingSpace/Pineapple/Library-cli/src/Source/welcome.cpp   | C++      |         15 |          6 |          2 |         23 |
+| /Users/rainchen/CodingSpace/Pineapple/README.md                            | Markdown |         21 |          0 |         18 |         39 |
+| Total                                                                      |          |        729 |        113 |         90 |        932 |
++----------------------------------------------------------------------------+----------+------------+------------+------------+------------+
