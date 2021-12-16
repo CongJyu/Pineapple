@@ -10,13 +10,13 @@
 using namespace std;
 void Welcome::you() {
     cout << endl;
-    cout << " dP  oo  dP                                                " << endl;
-    cout << " 88      88                                                " << endl;
-    cout << " 88  dP  88d888b.  88d888b.  .d8888b.  88d888b.  dP    dP  " << endl;
-    cout << " 88  88  88'  `88  88'  `88  88'  `88  88'  `88  88    88  " << endl;
-    cout << " 88  88  88.  .88  88        88.  .88  88        88.  .88  " << endl;
-    cout << " dP  dP  88Y8888'  dP        `88888P8  dP        `8888P88  " << endl;
-    cout << "                                                      .88  " << endl;
-    cout << "                                                  d8888P   " << endl;
+    cout << "\033[31m dP  oo  dP                                                \033[0m" << endl;
+    cout << "\033[31m 88      88                                                \033[0m" << endl;
+    cout << "\033[31m 88  dP  88d888b.  88d888b.  .d8888b.  88d888b.  dP    dP  \033[0m" << endl;
+    cout << "\033[32m 88  88  88'  `88  88'  `88  88'  `88  88'  `88  88    88  \033[0m" << endl;
+    cout << "\033[32m 88  88  88.  .88  88        88.  .88  88        88.  .88  \033[0m" << endl;
+    cout << "\033[34m dP  dP  88Y8888'  dP        `88888P8  dP        `8888P88  \033[0m" << endl;
+    cout << "\033[34m                                                      .88  \033[0m" << endl;
+    cout << "\033[34m                                                  d8888P   \033[0m" << endl;
     return;
 }
