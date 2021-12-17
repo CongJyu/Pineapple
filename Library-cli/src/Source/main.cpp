@@ -48,11 +48,11 @@ int main() {
         infile << "admin" << " " << "123456" << endl;
         infile.close();
         infile.open("/Users/rainchen/digiLibrary/admininfo.digilib");
-        cout << "🍍 Restored admin account...Done!" << endl;
+        cout << "🍍 Restored admin account...\033[36mDone!\033[0m" << endl;
         cout << "Please login." << endl;
     } else {
         infile.open("/Users/rainchen/digiLibrary/admininfo.digilib");
-        cout << "🍍 Checking...Done!" << endl;
+        cout << "🍍 Checking...\033[36mDone!\033[0m" << endl;
         cout << "Please login." << endl;
     }
     
@@ -66,19 +66,22 @@ int main() {
     char login;
     cout << "'s' -- administrator" << endl;
     cout << "'n' -- normal user" << endl;
-    cout << "root@digiLib ~ 😅 ";
+    cout << "root@digiLib ~ # ";
+    cout << "\033[35m";
     cin >> login;
+    cout << "\033[0m";
     while (login == 's') {
-        cout << "USERNAME:";
+        cout << "USERNAME:\033[35m";
         cin >> usr;
-        cout << "PASSWORD:";
+        cout << "\033[0mPASSWORD:\033[35m";
         cin >> pwd;
+        cout << "\033[0m";
         if ((usr == admin.username) && (pwd == admin.password)) {
-            cout << "🍍 Login successfully!" << endl;
+            cout << "🍍 \033[36mLogin successfully!\033[0m" << endl;
             usrmode = 1;
             break;
         } else {
-            cout << "ERR! Invalid username or password." << endl;
+            cout << "\033[41mERR! Invalid username or password.\033[0m" << endl;
         }
     }
     infile.close();
@@ -91,13 +94,14 @@ int main() {
     }
     cnt--;
     while (login == 'n') {
-        cout << "USERNAME:";
+        cout << "USERNAME:\033[35m";
         cin >> usr;
-        cout << "PASSWORD:";
+        cout << "\033[0mPASSWORD:\033[35m";
         cin >> pwd;
+        cout << "\033[0m";
         for (int i = 0; i < cnt; i++) {
             if ((usr == nuser[i].username) && (pwd == nuser[i].password)) {
-                cout << "🍍 Login successfully!" << endl;
+                cout << "🍍 \033[36mLogin successfully!\033[0m" << endl;
                 usrmode = 2;
                 break;
             } else {
@@ -108,7 +112,7 @@ int main() {
         if (usrmode == 2) {
             break;
         } else {
-            cout << "ERR! Invalid username or password." << endl;
+            cout << "\033[41mERR! Invalid username or password.\033[0m" << endl;
         }
     }
     infile.close();
@@ -121,7 +125,7 @@ int main() {
         //  NU command
         commandn(usr);
     } else {
-        cout << "ERR! Unknown error." << endl;
+        cout << "\033[41mERR! Unknown error.\033[0m" << endl;
     }
     return 0;
 }

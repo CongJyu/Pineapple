@@ -22,16 +22,22 @@ fstream profilen;
 void commandn(string usr) {
     ulog(usr, "first");
     while (true) {
-        cout << usr << "@digiLibrary ~ 😅 ";
+        cout << usr << "@digiLibrary ~ % ";
+        cout << "\033[35m";
         string cmd;
         cin >> cmd;
+        cout << "\033[0m";
         if (cmd == "quit") {
             //  quit this cli
-            cout << "🍍 Goodbye!" << endl;
+            cout << "🍍 \033[36mGoodbye!\033[0m" << endl;
             ulog(usr, "quit");
             break;
         } else if (cmd == "help") {
             cout << "🍍 Welcome to digiLibrary. See the commands below:" << endl;
+            for (int i = 0; i < 80; i++) {
+                cout << "\033[36m-\033[0m";
+            }
+            cout << endl;
             cout << "Basic commands:" << endl;
             cout << "    'version' -- show current version." << endl;
             cout << "    'help' -- get help." << endl;
@@ -46,11 +52,23 @@ void commandn(string usr) {
             cout << "        'search -i <ISBN/ISSN>'" << endl;
             cout << "        'search -a <Author>'" << endl;
             cout << "        'search -l <Class>'" << endl;
+            for (int i = 0; i < 80; i++) {
+                cout << "\033[36m-\033[0m";
+            }
+            cout << endl;
             ulog(usr, "help");
         } else if (cmd == "version") {
+            for (int i = 0; i < 80; i++) {
+                cout << "\033[36m-\033[0m";
+            }
+            cout << endl;
             cout << "🍍 digiLibrary v1.0.0" << endl;
             cout << "Build Dec 2021." << endl;
             cout << "Made by Rain Chen and Zheng ShuYao." << endl;
+            for (int i = 0; i < 80; i++) {
+                cout << "\033[36m-\033[0m";
+            }
+            cout << endl;
             ulog(usr, "version");
         } else if (cmd == "listbook") {
             //  list all the books
@@ -70,7 +88,7 @@ void commandn(string usr) {
             cnt = j - 1;
             bookn.close();
             for (int i = 0; i < 80; i++) {
-                cout << "-";
+                cout << "\033[36m-\033[0m";
             }
             cout << endl;
             for (int i = 0; i < cnt; i++) {
@@ -82,11 +100,11 @@ void commandn(string usr) {
                 cout << endl;
             }
             for (int i = 0; i < 80; i++) {
-                cout << "-";
+                cout << "\033[36m-\033[0m";
             }
             cout << endl;
             ulog(usr, "listbook");
-            cout << "🍍 All books listed. Done!" << endl;
+            cout << "🍍 \033[36mAll books listed. Done!\033[0m" << endl;
         } else if (cmd == "passwd") {
             //  change password
             cout << "Loading profiles..." << endl;
@@ -108,7 +126,7 @@ void commandn(string usr) {
                 }
             }
             profilen.close();
-            cout << "🍍 Ready." << endl;
+            cout << "🍍 \033[36mReady.\033[0m" << endl;
             string newpass;
             cout << "Enter your new password:";
             cin >> newpass;
@@ -123,7 +141,7 @@ void commandn(string usr) {
             profilen.close();
             ulog(usr, "passwd");
             delete [] nus;
-            cout << "🍍 Done. Your password has been changed." << endl;
+            cout << "🍍 \033[36mDone. Your password has been changed.\033[0m" << endl;
         } else if (cmd == "search") {
             //  search books
             cout << "Loading books...";
@@ -148,10 +166,10 @@ void commandn(string usr) {
             cin >> c;
             cout << "Searching..." << endl;
             for (int i = 0; i < 80; i++) {
-                cout << "-";
+                cout << "\033[36m-\033[0m";
             }
-            cin >> searchbook;
             cout << endl;
+            cin >> searchbook;
             switch (c[1]) {
                 case 'n':
                     for (int i = 0; i < cnt; i++) {
@@ -188,11 +206,14 @@ void commandn(string usr) {
                     break;
             }
             for (int i = 0; i < 80; i++) {
-                cout << "-";
+                cout << "\033[36m-\033[0m";
             }
             cout << endl;
             delete [] nbook;
-            cout << "🍍 Searching done. The results are listed above." << endl;
+            cout << "🍍 \033[36mSearching done. The results are listed above.\033[0m" << endl;
+        } else {
+            cout << "\033[41mERR! Unknown command '" << cmd << "'.\033[0m" << endl;
+            cout << "Type 'help' to see user guides." << endl;
         }
     }
     return;

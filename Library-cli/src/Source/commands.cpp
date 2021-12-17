@@ -22,12 +22,14 @@ fstream profile;
 void commands(string usr) {
     ulog(usr, "first");
     while (true) {
-        cout << usr << "@digiLibrary ~ 😅 ";
+        cout << usr << "@digiLibrary ~ # ";
         string cmd;
+        cout << "\033[35m";
         cin >> cmd;
+        cout << "\033[0m";
         if (cmd == "quit") {
             //  quit this cli
-            cout << "🍍 Goodbye!" << endl;
+            cout << "🍍 \033[36mGoodbye!\033[0m" << endl;
             ulog(usr, "quit");
             break;
         } else if (cmd == "help") {
@@ -35,6 +37,10 @@ void commands(string usr) {
             //  TODO: add 'delbook' command
             //  TODO: add 'chgbook' command
             cout << "🍍 Welcome to digiLibrary. See the commands below:" << endl;
+            for (int i = 0; i < 80; i++) {
+                cout << "\033[36m-\033[0m";
+            }
+            cout << endl;
             cout << "Basic commands:" << endl;
             cout << "    'version' -- show current version." << endl;
             cout << "    'help' -- get help." << endl;
@@ -53,12 +59,24 @@ void commands(string usr) {
             cout << "        'search -i <ISBN/ISSN>'" << endl;
             cout << "        'search -a <Author>'" << endl;
             cout << "        'search -l <Class>'" << endl;
+            for (int i = 0; i < 80; i++) {
+                cout << "\033[36m-\033[0m";
+            }
+            cout << endl;
             ulog(usr, "help");
         } else if (cmd == "version") {
             //  show version
+            for (int i = 0; i < 80; i++) {
+                cout << "\033[36m-\033[0m";
+            }
+            cout << endl;
             cout << "🍍 digiLibrary v1.0.0" << endl;
             cout << "Build Dec 2021." << endl;
             cout << "Made by Rain Chen and Zheng ShuYao." << endl;
+            for (int i = 0; i < 80; i++) {
+                cout << "\033[36m-\033[0m";
+            }
+            cout << endl;
             ulog(usr, "version");
         } else if (cmd == "listbook") {
             //  list all the books
@@ -78,7 +96,7 @@ void commands(string usr) {
             cnt = j - 1;
             checkbook.close();
             for (int i = 0; i < 80; i++) {
-                cout << "-";
+                cout << "\033[36m-\033[0m";
             }
             cout << endl;
             for (int i = 0; i < cnt; i++) {
@@ -90,12 +108,12 @@ void commands(string usr) {
                 cout << endl;
             }
             for (int i = 0; i < 80; i++) {
-                cout << "-";
+                cout << "\033[36m-\033[0m";
             }
             cout << endl;
             delete [] book;
             ulog(usr, "listbook");
-            cout << "🍍 All books listed. Done!" << endl;
+            cout << "🍍 \033[36mAll books listed. Done!\033[0m" << endl;
         } else if (cmd == "passwd") {
             //  change username and password
             cout << "Loading profiles..." << endl;
@@ -104,7 +122,7 @@ void commands(string usr) {
             profile >> oldusr >> oldpwd;
             profile.close();
             profile.open("/Users/rainchen/digiLibrary/admininfo.digilib", ios_base::out|ios_base::trunc);
-            cout << "🍍 Done!" << endl;
+            cout << "🍍 \033[36mDone!\033[0m" << endl;
             cout << "Enter your new username:";
             cin >> newusr;
             cout << "Enter your new password:";
@@ -112,7 +130,7 @@ void commands(string usr) {
             profile << newusr << " " << newpwd;
             profile.close();
             ulog(usr, "passwd");
-            cout << "🍍 Profile updated!" << endl;
+            cout << "🍍 \033[36mProfile updated!\033[0m" << endl;
             cout << "Use your new username and password to login next time." << endl;
         } else if (cmd == "useradd") {
             //  add a normal user
@@ -126,14 +144,15 @@ void commands(string usr) {
             string nusr, npwd;
             //  stand for 'normal user' and 'normal password'
             profile.open("/Users/rainchen/digiLibrary/nuserinfo.digilib", ios_base::app);
-            cout << "New normal user:";
+            cout << "New normal user:\033[35m";
             cin >> nusr;
-            cout << "'" << nusr << "' password:";
+            cout << "\033[0m'" << nusr << "' password:\033[35m";
             cin >> npwd;
+            cout << "\033[0m";
             profile << nusr << " " << npwd << endl;
             profile.close();
             ulog(usr, "useradd");
-            cout << "🍍 New normal user added! Done!" << endl;
+            cout << "🍍 \033[36mNew normal user added! Done!\033[0m" << endl;
         } else if (cmd == "listuser") {
             //  list all normal users, not super users
             if (!(filesystem::exists("/Users/rainchen/digiLibrary/nuserinfo.digilib"))) {
@@ -141,7 +160,7 @@ void commands(string usr) {
                 ofstream outfile("/Users/rainchen/digiLibrary/nuserinfo.digilib");
                 profile.close();
                 ulog(usr, "listuser");
-                cout << "🍍 No valid users. Done!" << endl;
+                cout << "🍍 \033[36mNo valid users. Done!\033[0m" << endl;
             } else {
                 profile.open("/Users/rainchen/digiLibrary/nuserinfo.digilib");
                 countline("/Users/rainchen/digiLibrary/nuserinfo.digilib");
@@ -152,19 +171,19 @@ void commands(string usr) {
                 }
                 profile.close();
                 for (int i = 0; i < 80; i++) {
-                    cout << "-";
+                    cout << "\033[36m-\033[0m";
                 }
                 cout << endl;
                 for (int i = 0; i < cnt; i++) {
                     cout << users[i].nusername << "    *******" << endl;
                 }
                 for (int i = 0; i < 80; i++) {
-                    cout << "-";
+                    cout << "\033[36m-\033[0m";
                 }
                 cout << endl;
                 ulog(usr, "listuser");
                 delete [] users;
-                cout << "🍍 " << cnt << " user(s) in total. Done!" << endl;
+                cout << "🍍 \033[36m" << cnt << " user(s) in total. Done!\033[0m" << endl;
             }
         } else if (cmd == "resetpwd") {
             //  set specific normal user's password to default
@@ -173,7 +192,7 @@ void commands(string usr) {
                 ofstream outfile("/Users/rainchen/digiLibrary/nuserinfo.digilib");
                 profile.close();
                 ulog(usr, "resetpwd");
-                cout << "🍍 No valid users. Done!" << endl;
+                cout << "🍍 \033[36mNo valid users. Done!\033[0m" << endl;
             } else {
                 //  reset user -- the username whose password will be reset
                 string resetuser;
@@ -194,7 +213,7 @@ void commands(string usr) {
                 profile.close();
                 if (mark == 0) {
                     ulog(usr, "resetpwd");
-                    cout << "🍍 There is no user '" << resetuser << "'. Done." << endl;
+                    cout << "🍍 \033[36mThere is no user '" << resetuser << "'. Done.\033[0m" << endl;
                 } else {
                     profile.open("/Users/rainchen/digiLibrary/nuserinfo.digilib", ios_base::out|ios_base::trunc);
                     for (int i = 0; i < cnt; i++) {
@@ -208,7 +227,7 @@ void commands(string usr) {
                     }
                     profile.close();
                     ulog(usr, "resetpwd");
-                    cout << "🍍 '" << resetuser << "' password reseted to default. Done." << endl;
+                    cout << "🍍 \033[36m'" << resetuser << "' password reseted to default. Done.\033[0m" << endl;
                 }
                 delete [] users;
             }
@@ -230,7 +249,7 @@ void commands(string usr) {
             << newbookborrow << endl;
             checkbook.close();
             ulog(usr, "addbook");
-            cout << "🍍 " << "Done. The book '" << newbookname << "' is added." << endl;
+            cout << "🍍 " << "\033[36mDone. The book '" << newbookname << "' is added.\033[0m" << endl;
         } else if (cmd == "clearlog") {
             //  clear log info
             if (!(filesystem::exists("/Users/rainchen/digiLibrary/digi.log"))) {
@@ -242,7 +261,7 @@ void commands(string usr) {
             profile.open("/Users/rainchen/digiLibrary/digi.log", ios_base::out|ios_base::trunc);
             profile.close();
             ulog(usr, "clearlog");
-            cout << "🍍 Done. All log info cleared." << endl;
+            cout << "🍍 \033[36mDone. All log info cleared.\033[0m" << endl;
         } else if (cmd == "search") {
             //  search books
             cout << "Loading books...";
@@ -267,7 +286,7 @@ void commands(string usr) {
             cin >> c;
             cout << "Searching..." << endl;
             for (int i = 0; i < 80; i++) {
-                cout << "-";
+                cout << "\033[36m-\033[0m";
             }
             cin >> searchbook;
             cout << endl;
@@ -307,11 +326,14 @@ void commands(string usr) {
                     break;
             }
             for (int i = 0; i < 80; i++) {
-                cout << "-";
+                cout << "\033[36m-\033[0m";
             }
             cout << endl;
             delete [] book;
-            cout << "🍍 Searching done. The results are listed above." << endl;
+            cout << "🍍 \033[36mSearching done. The results are listed above.\033[0m" << endl;
+        } else {
+            cout << "\033[41mERR! Unknown command '" << cmd << "'.\033[0m" << endl;
+            cout << "Type 'help' to see user guides." << endl;
         }
     }
     return;
