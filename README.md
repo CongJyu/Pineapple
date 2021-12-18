@@ -8,6 +8,13 @@ This is a simple CLI that can help you check your books list stored on your disk
 
 ## Updates
 
+### 2021-12-18
+
+Add new functions.
+
+- Administrator can delete books from library now.
+- Administrator can delete user accounts from usergroup now.
+
 ### 2021-12-17
 
 Change the color of LIBRARY title. Add colorful tips and hints to messages. Also, syntax highlighting is added.

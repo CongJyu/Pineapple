@@ -210,7 +210,10 @@ void commandn(string usr) {
             }
             cout << endl;
             delete [] nbook;
+            ulog(usr, "search");
             cout << "🍍 \033[36mSearching done. The results are listed above.\033[0m" << endl;
+        } else if (cmd == "") {
+            
         } else {
             cout << "\033[41mERR! Unknown command '" << cmd << "'.\033[0m" << endl;
             cout << "Type 'help' to see user guides." << endl;

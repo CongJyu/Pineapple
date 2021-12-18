@@ -34,7 +34,6 @@ void commands(string usr) {
             break;
         } else if (cmd == "help") {
             //  helpful tips
-            //  TODO: add 'delbook' command
             //  TODO: add 'chgbook' command
             cout << "🍍 Welcome to digiLibrary. See the commands below:" << endl;
             for (int i = 0; i < 80; i++) {
@@ -59,6 +58,7 @@ void commands(string usr) {
             cout << "        'search -i <ISBN/ISSN>'" << endl;
             cout << "        'search -a <Author>'" << endl;
             cout << "        'search -l <Class>'" << endl;
+            cout << "    'delbook <bookname>' -- delete a book from library." << endl;
             for (int i = 0; i < 80; i++) {
                 cout << "\033[36m-\033[0m";
             }
@@ -81,7 +81,6 @@ void commands(string usr) {
         } else if (cmd == "listbook") {
             //  list all the books
             checkbook.open("/Users/rainchen/digiLibrary/books.txt");
-            countline("/Users/rainchen/digiLibrary/books.txt");
             int cnt = countline("/Users/rainchen/digiLibrary/books.txt");
             digiLibrary * book = new digiLibrary [cnt];
             int j = 0;
@@ -330,7 +329,85 @@ void commands(string usr) {
             }
             cout << endl;
             delete [] book;
+            ulog(usr, "search");
             cout << "🍍 \033[36mSearching done. The results are listed above.\033[0m" << endl;
+        } else if (cmd == "delbook") {
+            //  delete a book
+            string targetbook;
+            cin >> targetbook;
+            checkbook.open("/Users/rainchen/digiLibrary/books.txt");
+            int cnt = countline("/Users/rainchen/digiLibrary/books.txt");
+            digiLibrary * book = new digiLibrary [cnt];
+            int j = 0;
+            while (checkbook.eof() != 1) {
+                checkbook >> book[j].bname
+                >> book[j].isbn
+                >> book[j].author
+                >> book[j].location
+                >> book[j].borrow;
+                j++;
+            }
+            cnt = j - 1;
+            checkbook.close();
+            checkbook.open("/Users/rainchen/digiLibrary/books.txt", ios_base::out|ios_base::trunc);
+            for (int i = 0; i < cnt; i++) {
+                if (book[i].bname == targetbook) {
+                    continue;
+                }
+                checkbook << book[i].bname << " "
+                << book[i].isbn << " "
+                << book[i].author << " "
+                << book[i].location << " "
+                << book[i].borrow;
+                checkbook << endl;
+            }
+            checkbook.close();
+            delete [] book;
+            ulog(usr, "delbook");
+            cout << "🍍 Done! '" << targetbook << "' is deleted." << endl;
+        } else if (cmd == "userdel") {
+            //  delete a user
+            string targetuser;
+            cin >> targetuser;
+            if (!(filesystem::exists("/Users/rainchen/digiLibrary/nuserinfo.digilib"))) {
+                cout << "No current normal user. Initializing..." << endl;
+                ofstream outfile("/Users/rainchen/digiLibrary/nuserinfo.digilib");
+                profile.close();
+                ulog(usr, "resetpwd");
+                cout << "🍍 \033[36mNo valid users. Done!\033[0m" << endl;
+            } else {
+                cout << "Loading profiles..." << endl;
+                profile.open("/Users/rainchen/digiLibrary/nuserinfo.digilib");
+                int mark = 0;
+                countline("/Users/rainchen/digiLibrary/nuserinfo.digilib");
+                int cnt = countline("/Users/rainchen/digiLibrary/nuserinfo.digilib");
+                nusProfile * users = new nusProfile [cnt];
+                for (int i = 0; i < cnt; i++) {
+                    profile >> users[i].nusername >> users[i].npassword;
+                    if (users[i].nusername == targetuser) {
+                        mark = i;
+                    }
+                }
+                profile.close();
+                if (mark == 0) {
+                    ulog(usr, "resetpwd");
+                    cout << "🍍 \033[36mThere is no user '" << targetuser << "'. Done.\033[0m" << endl;
+                } else {
+                    profile.open("/Users/rainchen/digiLibrary/nuserinfo.digilib", ios_base::out|ios_base::trunc);
+                    for (int i = 0; i < cnt; i++) {
+                        if (i == mark) {
+                            continue;
+                        } else {
+                            profile << users[i].nusername << " "
+                            << users[i].npassword << endl;
+                        }
+                    }
+                    profile.close();
+                    ulog(usr, "userdel");
+                    cout << "🍍 \033[36mDone. '" << targetuser << "' is deleted.\033[0m" << endl;
+                }
+                delete [] users;
+            }
         } else {
             cout << "\033[41mERR! Unknown command '" << cmd << "'.\033[0m" << endl;
             cout << "Type 'help' to see user guides." << endl;
