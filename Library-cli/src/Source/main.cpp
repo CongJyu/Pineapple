@@ -35,23 +35,29 @@ fstream infile;
 //  mode
 int usrmode = 0;
 
+//  application data and user data
+string dir;
+
 int main() {
     //  display welcome messages
     Welcome welcome;
     welcome.you();
+    cout << "\033[36m!~IMPORTANT~!\033[0m" << endl;
+    cout << "Configure your data dir(e.g. /Users/rainchen/digiLibrary):";
+    cin >> dir;
     
     //  check the account info
-    if (!(filesystem::exists("/Users/rainchen/digiLibrary/admininfo.digilib"))) {
-        ofstream outfile("/Users/rainchen/digiLibrary/admininfo.digilib");
+    if (!(filesystem::exists(dir + "/admininfo.digilib"))) {
+        ofstream outfile(dir + "/admininfo.digilib");
         infile.close();
-        infile.open("/Users/rainchen/digiLibrary/admininfo.digilib");
+        infile.open(dir + "/admininfo.digilib");
         infile << "admin" << " " << "123456" << endl;
         infile.close();
-        infile.open("/Users/rainchen/digiLibrary/admininfo.digilib");
+        infile.open(dir + "/admininfo.digilib");
         cout << "🍍 Restored admin account...\033[36mDone!\033[0m" << endl;
         cout << "Please login." << endl;
     } else {
-        infile.open("/Users/rainchen/digiLibrary/admininfo.digilib");
+        infile.open(dir + "/admininfo.digilib");
         cout << "🍍 Checking...\033[36mDone!\033[0m" << endl;
         cout << "Please login." << endl;
     }
@@ -87,7 +93,7 @@ int main() {
     infile.close();
     accountInfo nuser[10000];
     int cnt = 0;
-    infile.open("/Users/rainchen/digiLibrary/nuserinfo.digilib");
+    infile.open(dir + "/nuserinfo.digilib");
     while (infile.eof() != 1) {
         infile >> nuser[cnt].username >> nuser[cnt].password;
         cnt++;
@@ -120,10 +126,10 @@ int main() {
     //  commandline input
     if (usrmode == 1) {
         //  SU command
-        commands(usr);
+        commands(usr, dir);
     } else if (usrmode == 2) {
         //  NU command
-        commandn(usr);
+        commandn(usr, dir);
     } else {
         cout << "\033[41mERR! Unknown error.\033[0m" << endl;
     }

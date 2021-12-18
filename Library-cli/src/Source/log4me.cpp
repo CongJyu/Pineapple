@@ -58,6 +58,10 @@ int ulog(string usr, string command) {
         log << "[" << tmp << "] " << "'" << usr << "' delete a book." << endl;
     } else if (command == "userdel") {
         log << "[" << tmp << "] " << "'" << usr << "' delete a user." << endl;
+    } else if (command == "lsmybook") {
+        log << "[" << tmp << "] " << "'" << usr << "' list books borrowed." << endl;
+    } else if (command == "lsborrow") {
+        log << "[" << tmp << "] " << "'" << usr << "' list somebody's books." << endl;
     }
     
     //  close log file

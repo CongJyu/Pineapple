@@ -22,14 +22,16 @@ fstream profilen;
 
 void show_user_help();
 
-void commandn(string usr) {
+void commandn(string usr, string dir) {
     ulog(usr, "first");
     while (true) {
         //  is user data existes
-        string userpath = "/Users/rainchen/digiLibrary/" + usr + ".digidata";
+        string userpath = dir + "/" + usr + ".digidata";
         if (!(filesystem::exists(userpath))) {
             ofstream outfile(userpath);
             outfile.close();
+            profilen.open(userpath);
+            profilen.close();
         } else {
             profilen.open(userpath);
             profilen.close();
@@ -63,9 +65,9 @@ void commandn(string usr) {
             ulog(usr, "version");
         } else if (cmd == "listbook") {
             //  list all the books
-            bookn.open("/Users/rainchen/digiLibrary/books.txt");
-            countline("/Users/rainchen/digiLibrary/books.txt");
-            int cnt = countline("/Users/rainchen/digiLibrary/books.txt");
+            bookn.open(dir + "/books.txt");
+            countline(dir + "/books.txt");
+            int cnt = countline(dir + "/books.txt");
             nudigiLibrary * nbook = new nudigiLibrary [cnt];
             int j = 0;
             while (bookn.eof() != 1) {
@@ -99,16 +101,16 @@ void commandn(string usr) {
         } else if (cmd == "passwd") {
             //  change password
             cout << "Loading profiles..." << endl;
-            if (!(filesystem::exists("/Users/rainchen/digiLibrary/nuserinfo.digilib"))) {
+            if (!(filesystem::exists(dir + "/nuserinfo.digilib"))) {
                 cout << "No current normal user. Initializing..." << endl;
-                ofstream outfile("/Users/rainchen/digiLibrary/nuserinfo.digilib");
+                ofstream outfile(dir + "/nuserinfo.digilib");
                 profilen.close();
             } else {
-                profilen.open("/Users/rainchen/digiLibrary/nuserinfo.digilib");
+                profilen.open(dir + "/nuserinfo.digilib");
             }
             int mark = 0;
-            countline("/Users/rainchen/digiLibrary/nuserinfo.digilib");
-            int cnt = countline("/Users/rainchen/digiLibrary/nuserinfo.digilib");
+            countline(dir + "/nuserinfo.digilib");
+            int cnt = countline(dir + "/nuserinfo.digilib");
             nuserprof * nus = new nuserprof [cnt];
             for (int i = 0; i < cnt; i++) {
                 profilen >> nus[i].nusername >> nus[i].npassword;
@@ -121,7 +123,7 @@ void commandn(string usr) {
             string newpass;
             cout << "Enter your new password:";
             cin >> newpass;
-            profilen.open("/Users/rainchen/digiLibrary/nuserinfo.digilib", ios_base::out|ios_base::trunc);
+            profilen.open(dir + "/nuserinfo.digilib", ios_base::out|ios_base::trunc);
             for (int i = 0; i < cnt; i++) {
                 if (i == mark) {
                     profilen << nus[i].nusername << " " << newpass << endl;
@@ -137,9 +139,9 @@ void commandn(string usr) {
             //  search books
             cout << "Loading books...";
             char c[2];    //  receive command
-            bookn.open("/Users/rainchen/digiLibrary/books.txt");
-            countline("/Users/rainchen/digiLibrary/books.txt");
-            int cnt = countline("/Users/rainchen/digiLibrary/books.txt");
+            bookn.open(dir + "/books.txt");
+            countline(dir + "/books.txt");
+            int cnt = countline(dir + "/books.txt");
             nudigiLibrary * nbook = new nudigiLibrary [cnt];
             int j = 0;
             while (bookn.eof() != 1) {
@@ -206,9 +208,9 @@ void commandn(string usr) {
         } else if (cmd == "borrow") {
             string borrowbook;
             cin >> borrowbook;
-            bookn.open("/Users/rainchen/digiLibrary/books.txt");
-            countline("/Users/rainchen/digiLibrary/books.txt");
-            int cnt = countline("/Users/rainchen/digiLibrary/books.txt");
+            bookn.open(dir + "/books.txt");
+            countline(dir + "/books.txt");
+            int cnt = countline(dir + "/books.txt");
             nudigiLibrary * nbook = new nudigiLibrary [cnt];
             int j = 0;
             while (bookn.eof() != 1) {
@@ -221,8 +223,8 @@ void commandn(string usr) {
             }
             cnt = j - 1;
             bookn.close();
-            string userpath = "/Users/rainchen/digiLibrary/" + usr + ".digidata";
-            bookn.open(userpath);
+            string userpath = dir + "/" + usr + ".digidata";
+            bookn.open(userpath, ios_base::app);
             for (int i = 0; i < cnt; i++) {
                 if (nbook[i].isbn == borrowbook) {
                     bookn << nbook[i].bname << " "
@@ -236,11 +238,11 @@ void commandn(string usr) {
             delete [] nbook;
             bookn.close();
             ulog(usr, "borrow");
-            cout << "🍍 Done. Borrow '" << borrowbook << "' from library." << endl;
+            cout << "🍍 \033[36mDone. Borrow '" << borrowbook << "' from library.\033[0m" << endl;
         } else if (cmd == "return") {
             string returnbook;
             cin >> returnbook;
-            string userpath = "/Users/rainchen/digiLibrary/" + usr + ".digidata";
+            string userpath = dir + "/" + usr + ".digidata";
             bookn.open(userpath);
             int cnt = countline(userpath);
             nudigiLibrary * nbook = new nudigiLibrary [cnt];
@@ -270,6 +272,45 @@ void commandn(string usr) {
             bookn.close();
             ulog(usr, "return");
             cout << "🍍 \033[36mDone. Return '" << returnbook << "' to library.\033[0m" << endl;
+        } else if (cmd == "lsmybook") {
+            //  list the books you've borrowed
+            cout << "Loading books..." << endl;
+            bookn.open(dir + "/" + usr + ".digidata");
+            countline(dir + "/" + usr + ".digidata");
+            int cnt = countline(dir + "/" + usr + ".digidata");
+            nudigiLibrary * nbook = new nudigiLibrary [cnt];
+            int j = 0;
+            while (bookn.eof() != 1) {
+                bookn >> nbook[j].bname
+                >> nbook[j].isbn
+                >> nbook[j].author
+                >> nbook[j].location
+                >> nbook[j].borrow;
+                j++;
+            }
+            cnt = j - 1;
+            bookn.close();
+            cout << "Current books you've borrowed:" << endl;
+            for (int i = 0; i < 80; i++) {
+                cout << "\033[36m-\033[0m";
+            }
+            cout << endl;
+            for (int i = 0; i < cnt; i++) {
+                cout << nbook[i].bname << " "
+                << nbook[i].isbn << " "
+                << nbook[i].author << " "
+                << nbook[i].location << " "
+                << nbook[i].borrow;
+                cout << endl;
+            }
+            for (int i = 0; i < 80; i++) {
+                cout << "\033[36m-\033[0m";
+            }
+            cout << endl;
+            delete [] nbook;
+            ulog(usr, "lsmybook");
+            cout << "🍍 \033[36mDone. All your books are listed." << endl;
+            cout << "Do not forget to return them on time.\033[0m" << endl;
         } else {
             cout << "\033[41mERR! Unknown command '" << cmd << "'.\033[0m" << endl;
             cout << "Type 'help' to see user guides." << endl;
@@ -300,6 +341,7 @@ void show_user_help() {
     cout << "        'search -l <Class>'" << endl;
     cout << "    'borrow <ISBN/ISSN>' -- borrow a book from library." << endl;
     cout << "    'return <ISBN/ISSN>' -- return a book to library." << endl;
+    cout << "    'lsmybook' -- list the books you've borrowed." << endl;
     for (int i = 0; i < 80; i++) {
         cout << "\033[36m-\033[0m";
     }

@@ -30,6 +30,6 @@ struct nusProfile {
     string npassword;
 };
 
-void commands(string);
+void commands(string, string);
 
 #endif /* commands_hpp */

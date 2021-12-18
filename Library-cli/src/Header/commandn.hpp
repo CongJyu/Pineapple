@@ -30,6 +30,6 @@ struct nuserprof {
     string npassword;
 };
 
-void commandn(string);
+void commandn(string, string);
 
 #endif /* commandn_hpp */
