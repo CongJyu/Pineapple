@@ -53,20 +53,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F034713427687BED006E8D7C /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				F0E4607C27674E5500A9A18B /* main.cpp */,
-				F05399FF2768D2EB004DF3E0 /* log4me.cpp */,
-				F0E460862767760600A9A18B /* commands.cpp */,
-				F00B688E276A435F00D5B877 /* countline.cpp */,
-				F0E60B36276852C500B89741 /* commandn.cpp */,
-				F0E4608327675A7A00A9A18B /* welcome.cpp */,
-			);
-			path = Source;
-			sourceTree = "<group>";
-		};
-		F034713527687BF8006E8D7C /* Header */ = {
+		F034713527687BF8006E8D7C /* include */ = {
 			isa = PBXGroup;
 			children = (
 				F0539A002768D2EB004DF3E0 /* log4me.hpp */,
@@ -75,12 +62,13 @@
 				F0E4608427675A7A00A9A18B /* welcome.hpp */,
 				F00B688F276A435F00D5B877 /* countline.hpp */,
 			);
-			path = Header;
+			path = include;
 			sourceTree = "<group>";
 		};
 		F0E4607027674E5500A9A18B = {
 			isa = PBXGroup;
 			children = (
+				F034713527687BF8006E8D7C /* include */,
 				F0E4607B27674E5500A9A18B /* src */,
 				F0E4607A27674E5500A9A18B /* Products */,
 			);
@@ -97,8 +85,12 @@
 		F0E4607B27674E5500A9A18B /* src */ = {
 			isa = PBXGroup;
 			children = (
-				F034713527687BF8006E8D7C /* Header */,
-				F034713427687BED006E8D7C /* Source */,
+				F0E4607C27674E5500A9A18B /* main.cpp */,
+				F05399FF2768D2EB004DF3E0 /* log4me.cpp */,
+				F0E460862767760600A9A18B /* commands.cpp */,
+				F00B688E276A435F00D5B877 /* countline.cpp */,
+				F0E60B36276852C500B89741 /* commandn.cpp */,
+				F0E4608327675A7A00A9A18B /* welcome.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
