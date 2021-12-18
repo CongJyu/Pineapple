@@ -31,7 +31,7 @@ Press the `n` key on your keyboard, then `⏎Enter`. Then you will be required t
 Type like this, for both Administrator and Normal Users.
 
 ```shell
-you@digiLibrary ~ % help
+help
 ```
 
 This command will show you all the commands available.
@@ -41,7 +41,7 @@ This command will show you all the commands available.
 Type like this, for both Administrator and Normal Users.
 
 ```shell
-you@digiLibrary ~ % version
+version
 ```
 
 This will show you the information about this software, including name of the software, version, authors and contributors.
