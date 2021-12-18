@@ -13,15 +13,27 @@
 #include <fstream>
 #include <cstring>
 #include <string>
+#include <unistd.h>
 
 using namespace std;
 
 fstream bookn;
 fstream profilen;
 
+void show_user_help();
+
 void commandn(string usr) {
     ulog(usr, "first");
     while (true) {
+        //  is user data existes
+        string userpath = "/Users/rainchen/digiLibrary/" + usr + ".digidata";
+        if (!(filesystem::exists(userpath))) {
+            ofstream outfile(userpath);
+            outfile.close();
+        } else {
+            profilen.open(userpath);
+            profilen.close();
+        }
         cout << usr << "@digiLibrary ~ % ";
         cout << "\033[35m";
         string cmd;
@@ -33,29 +45,8 @@ void commandn(string usr) {
             ulog(usr, "quit");
             break;
         } else if (cmd == "help") {
-            cout << "🍍 Welcome to digiLibrary. See the commands below:" << endl;
-            for (int i = 0; i < 80; i++) {
-                cout << "\033[36m-\033[0m";
-            }
-            cout << endl;
-            cout << "Basic commands:" << endl;
-            cout << "    'version' -- show current version." << endl;
-            cout << "    'help' -- get help." << endl;
-            cout << "    'quit' -- quit digiLibrary." << endl;
-            cout << "Account settings:" << endl;
-            cout << "    'passwd' -- change and set your password." << endl;
-            cout << "Book Management:" << endl;
-            cout << "    'listbook' -- list all the books." << endl;
-            cout << "    'addbook <Bookname> <ISBN/ISSN> <Author> <Class> <isBorrow>' -- add a book to library." << endl;
-            cout << "    'search' -- search a book from library." << endl;
-            cout << "        'search -n <Bookname>'" << endl;
-            cout << "        'search -i <ISBN/ISSN>'" << endl;
-            cout << "        'search -a <Author>'" << endl;
-            cout << "        'search -l <Class>'" << endl;
-            for (int i = 0; i < 80; i++) {
-                cout << "\033[36m-\033[0m";
-            }
-            cout << endl;
+            //  show help
+            show_user_help();
             ulog(usr, "help");
         } else if (cmd == "version") {
             for (int i = 0; i < 80; i++) {
@@ -212,12 +203,106 @@ void commandn(string usr) {
             delete [] nbook;
             ulog(usr, "search");
             cout << "🍍 \033[36mSearching done. The results are listed above.\033[0m" << endl;
-        } else if (cmd == "") {
-            
+        } else if (cmd == "borrow") {
+            string borrowbook;
+            cin >> borrowbook;
+            bookn.open("/Users/rainchen/digiLibrary/books.txt");
+            countline("/Users/rainchen/digiLibrary/books.txt");
+            int cnt = countline("/Users/rainchen/digiLibrary/books.txt");
+            nudigiLibrary * nbook = new nudigiLibrary [cnt];
+            int j = 0;
+            while (bookn.eof() != 1) {
+                bookn >> nbook[j].bname
+                >> nbook[j].isbn
+                >> nbook[j].author
+                >> nbook[j].location
+                >> nbook[j].borrow;
+                j++;
+            }
+            cnt = j - 1;
+            bookn.close();
+            string userpath = "/Users/rainchen/digiLibrary/" + usr + ".digidata";
+            bookn.open(userpath);
+            for (int i = 0; i < cnt; i++) {
+                if (nbook[i].isbn == borrowbook) {
+                    bookn << nbook[i].bname << " "
+                    << nbook[i].isbn << " "
+                    << nbook[i].author << " "
+                    << nbook[i].location << " "
+                    << nbook[i].borrow << endl;
+                    break;
+                }
+            }
+            delete [] nbook;
+            bookn.close();
+            ulog(usr, "borrow");
+            cout << "🍍 Done. Borrow '" << borrowbook << "' from library." << endl;
+        } else if (cmd == "return") {
+            string returnbook;
+            cin >> returnbook;
+            string userpath = "/Users/rainchen/digiLibrary/" + usr + ".digidata";
+            bookn.open(userpath);
+            int cnt = countline(userpath);
+            nudigiLibrary * nbook = new nudigiLibrary [cnt];
+            int j = 0;
+            while (bookn.eof() != 1) {
+                bookn >> nbook[j].bname
+                >> nbook[j].isbn
+                >> nbook[j].author
+                >> nbook[j].location
+                >> nbook[j].borrow;
+                j++;
+            }
+            cnt = j - 1;
+            bookn.close();
+            bookn.open(userpath, ios_base::out|ios_base::trunc);
+            for (int i = 0; i < cnt; i++) {
+                if (nbook[i].isbn == returnbook) {
+                    continue;
+                } else {
+                    bookn << nbook[i].bname << " "
+                    << nbook[i].isbn << " "
+                    << nbook[i].author << " "
+                    << nbook[i].location << " "
+                    << nbook[i].borrow << endl;
+                }
+            }
+            bookn.close();
+            ulog(usr, "return");
+            cout << "🍍 \033[36mDone. Return '" << returnbook << "' to library.\033[0m" << endl;
         } else {
             cout << "\033[41mERR! Unknown command '" << cmd << "'.\033[0m" << endl;
             cout << "Type 'help' to see user guides." << endl;
         }
     }
+    return;
+}
+
+void show_user_help() {
+    cout << "🍍 Welcome to digiLibrary. See the commands below:" << endl;
+    for (int i = 0; i < 80; i++) {
+        cout << "\033[36m-\033[0m";
+    }
+    cout << endl;
+    cout << "Basic commands:" << endl;
+    cout << "    'version' -- show current version." << endl;
+    cout << "    'help' -- get help." << endl;
+    cout << "    'quit' -- quit digiLibrary." << endl;
+    cout << "Account settings:" << endl;
+    cout << "    'passwd' -- change and set your password." << endl;
+    cout << "Book Management:" << endl;
+    cout << "    'listbook' -- list all the books." << endl;
+    cout << "    'addbook <Bookname> <ISBN/ISSN> <Author> <Class> <isBorrow>' -- add a book to library." << endl;
+    cout << "    'search' -- search a book from library." << endl;
+    cout << "        'search -n <Bookname>'" << endl;
+    cout << "        'search -i <ISBN/ISSN>'" << endl;
+    cout << "        'search -a <Author>'" << endl;
+    cout << "        'search -l <Class>'" << endl;
+    cout << "    'borrow <ISBN/ISSN>' -- borrow a book from library." << endl;
+    cout << "    'return <ISBN/ISSN>' -- return a book to library." << endl;
+    for (int i = 0; i < 80; i++) {
+        cout << "\033[36m-\033[0m";
+    }
+    cout << endl;
     return;
 }

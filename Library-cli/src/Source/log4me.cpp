@@ -56,6 +56,8 @@ int ulog(string usr, string command) {
         log << "[" << tmp << "] " << "'" << usr << "' search books." << endl;
     } else if (command == "delbook") {
         log << "[" << tmp << "] " << "'" << usr << "' delete a book." << endl;
+    } else if (command == "userdel") {
+        log << "[" << tmp << "] " << "'" << usr << "' delete a user." << endl;
     }
     
     //  close log file

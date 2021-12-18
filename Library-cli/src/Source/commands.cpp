@@ -13,11 +13,14 @@
 #include <fstream>
 #include <cstring>
 #include <string>
+#include <unistd.h>
 
 using namespace std;
 
 fstream checkbook;
 fstream profile;
+
+void show_admin_help();
 
 void commands(string usr) {
     ulog(usr, "first");
@@ -34,35 +37,7 @@ void commands(string usr) {
             break;
         } else if (cmd == "help") {
             //  helpful tips
-            //  TODO: add 'chgbook' command
-            cout << "🍍 Welcome to digiLibrary. See the commands below:" << endl;
-            for (int i = 0; i < 80; i++) {
-                cout << "\033[36m-\033[0m";
-            }
-            cout << endl;
-            cout << "Basic commands:" << endl;
-            cout << "    'version' -- show current version." << endl;
-            cout << "    'help' -- get help." << endl;
-            cout << "    'clearlog' -- clear log info." << endl;
-            cout << "    'quit' -- quit digiLibrary." << endl;
-            cout << "Account settings:" << endl;
-            cout << "    'passwd' -- change and set your password." << endl;
-            cout << "    'useradd' -- create a normal user." << endl;
-            cout << "    'listuser' -- list all normal users." << endl;
-            cout << "    'resetpwd' -- reset normal user's password to default." << endl;
-            cout << "Book Management:" << endl;
-            cout << "    'listbook' -- list all the books." << endl;
-            cout << "    'addbook <Bookname> <ISBN/ISSN> <Author> <Class> <isBorrow>' -- add a book to library." << endl;
-            cout << "    'search' -- search a book from library." << endl;
-            cout << "        'search -n <Bookname>'" << endl;
-            cout << "        'search -i <ISBN/ISSN>'" << endl;
-            cout << "        'search -a <Author>'" << endl;
-            cout << "        'search -l <Class>'" << endl;
-            cout << "    'delbook <bookname>' -- delete a book from library." << endl;
-            for (int i = 0; i < 80; i++) {
-                cout << "\033[36m-\033[0m";
-            }
-            cout << endl;
+            show_admin_help();
             ulog(usr, "help");
         } else if (cmd == "version") {
             //  show version
@@ -157,7 +132,7 @@ void commands(string usr) {
             if (!(filesystem::exists("/Users/rainchen/digiLibrary/nuserinfo.digilib"))) {
                 cout << "No current normal user. Initializing..." << endl;
                 ofstream outfile("/Users/rainchen/digiLibrary/nuserinfo.digilib");
-                profile.close();
+                outfile.close();
                 ulog(usr, "listuser");
                 cout << "🍍 \033[36mNo valid users. Done!\033[0m" << endl;
             } else {
@@ -186,6 +161,8 @@ void commands(string usr) {
             }
         } else if (cmd == "resetpwd") {
             //  set specific normal user's password to default
+            string resetuser;
+            cin >> resetuser;
             if (!(filesystem::exists("/Users/rainchen/digiLibrary/nuserinfo.digilib"))) {
                 cout << "No current normal user. Initializing..." << endl;
                 ofstream outfile("/Users/rainchen/digiLibrary/nuserinfo.digilib");
@@ -194,11 +171,8 @@ void commands(string usr) {
                 cout << "🍍 \033[36mNo valid users. Done!\033[0m" << endl;
             } else {
                 //  reset user -- the username whose password will be reset
-                string resetuser;
                 cout << "Loading profiles..." << endl;
                 profile.open("/Users/rainchen/digiLibrary/nuserinfo.digilib");
-                cout << "Done. Reset whose password(Enter username):";
-                cin >> resetuser;
                 int mark = 0;
                 countline("/Users/rainchen/digiLibrary/nuserinfo.digilib");
                 int cnt = countline("/Users/rainchen/digiLibrary/nuserinfo.digilib");
@@ -413,5 +387,38 @@ void commands(string usr) {
             cout << "Type 'help' to see user guides." << endl;
         }
     }
+    return;
+}
+
+void show_admin_help() {
+    cout << "🍍 Welcome to digiLibrary. See the commands below:" << endl;
+    for (int i = 0; i < 80; i++) {
+        cout << "\033[36m-\033[0m";
+    }
+    cout << endl;
+    cout << "Basic commands:" << endl;
+    cout << "    'version' -- show current version." << endl;
+    cout << "    'help' -- get help." << endl;
+    cout << "    'clearlog' -- clear log info." << endl;
+    cout << "    'quit' -- quit digiLibrary." << endl;
+    cout << "Account settings:" << endl;
+    cout << "    'passwd' -- change and set your password." << endl;
+    cout << "    'useradd' -- create a normal user." << endl;
+    cout << "    'listuser' -- list all normal users." << endl;
+    cout << "    'resetpwd <Username>' -- reset normal user's password to default." << endl;
+    cout << "    'userdel <Username>' -- delete a user." << endl;
+    cout << "Book Management:" << endl;
+    cout << "    'listbook' -- list all the books." << endl;
+    cout << "    'addbook <Bookname> <ISBN/ISSN> <Author> <Class> <isBorrow>' -- add a book to library." << endl;
+    cout << "    'search' -- search a book from library." << endl;
+    cout << "        'search -n <Bookname>'" << endl;
+    cout << "        'search -i <ISBN/ISSN>'" << endl;
+    cout << "        'search -a <Author>'" << endl;
+    cout << "        'search -l <Class>'" << endl;
+    cout << "    'delbook <bookname>' -- delete a book from library." << endl;
+    for (int i = 0; i < 80; i++) {
+        cout << "\033[36m-\033[0m";
+    }
+    cout << endl;
     return;
 }
