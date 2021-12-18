@@ -8,16 +8,16 @@ This is a simple CLI that can help you check your books list stored on your disk
 
 ## Updates
 
-### 2021-12-13
+### 2021-12-17
 
-Create this project.
+Change the color of LIBRARY title. Add colorful tips and hints to messages. Also, syntax highlighting is added.
 
-### 2021-12-14
+### 2021-12-16
 
-Add search function.
+Fixed some bugs.
 
-- You can search book names, authors, ISBN/ISSN now.
-- You don't need to type the entire name of the book.
+- The searching function don't sometimes break down anymore.
+- The list of books is normal now.
 
 ### 2021-12-15
 
@@ -26,12 +26,16 @@ Now the books can be added nearly without limitations.
 - The storage of the books can enlarge up to 10 thousands.
 - The number of the users can enlarge up to 5 thousands.
 
-### 2021-12-16
+### 2021-12-14
 
-Fixed some bugs.
+Add search function.
 
-- The searching function don't sometimes break down anymore.
-- The list of books is normal now.
+- You can search book names, authors, ISBN/ISSN now.
+- You don't need to type the entire name of the book.
+
+### 2021-12-13
+
+Create this project.
 
 ## Declaration
 
