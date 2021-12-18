@@ -10,6 +10,46 @@ All Rights Reserved. Rain Chen 2021.
 
 This is a simple CLI that can help you check your books list stored on your disk, manage users, and record logs. Just like a simple library.
 
+## Usage
+
+### Set your data dir
+
+Follow the tips, enter your data dir. This folder will be used to store all the information about this library, so please put your library's booklist(for example: `books.txt`) in it as well.
+
+The data dir must be like this: `/Users/rainchen/digiLibrary`.
+
+### Log As Super User Mode (SU, also Administrator, root)
+
+Press the `s` key on your keyboard, then `⏎Enter`. Then you will be required to enter your username and password. The default username for administrator is `admin`, and password `123456`.
+
+### Log As Normal User Mode (For our teachers and students)
+
+Press the `n` key on your keyboard, then `⏎Enter`. Then you will be required to enter your username(usually your School Number), as well as your password. Your account will be setup by Administrator so that you can only change your password. Username changes are not available.
+
+### Help Command
+
+Type like this, for both Administrator and Normal Users.
+
+```shell
+you@digiLibrary ~ % help
+```
+
+This command will show you all the commands available.
+
+### Version Command
+
+Type like this, for both Administrator and Normal Users.
+
+```shell
+you@digiLibrary ~ % version
+```
+
+This will show you the information about this software, including name of the software, version, authors and contributors.
+
+### Emergency situations
+
+If you find something go wrong, press `⌃Control` + `C` to terminate the session.
+
 ## Updates
 
 ### 2021-12-18
