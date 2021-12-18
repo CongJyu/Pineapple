@@ -2,6 +2,10 @@
 
 A library management CLI
 
+This is a COMMAND LINE TOOL, final-term project of the C++ Language Programming Course, CSEE, HNU.
+
+All Rights Reserved. Rain Chen 2021.
+
 ## Basic functions
 
 This is a simple CLI that can help you check your books list stored on your disk, manage users, and record logs. Just like a simple library.
@@ -14,6 +18,13 @@ Add new functions.
 
 - Administrator can delete books from library now.
 - Administrator can delete user accounts from usergroup now.
+- Users can borrow and return books.
+- Administrator can monitor the booklist of a specific individual.
+
+Fixed some bugs.
+
+- Now it can read and write a file normally.
+- User profiles works.
 
 ### 2021-12-17
 
@@ -44,6 +55,16 @@ Add search function.
 
 Create this project.
 
-## Declaration
+## Supported OS
 
-This is a COMMAND LINE TOOL.
+### macOS
+
+Build succeeded.
+
+### Unix
+
+Build succeeded.
+
+### Linux
+
+Not build yet.
