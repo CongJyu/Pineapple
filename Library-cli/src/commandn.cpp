@@ -333,7 +333,6 @@ void show_user_help() {
     cout << "    'passwd' -- change and set your password." << endl;
     cout << "Book Management:" << endl;
     cout << "    'listbook' -- list all the books." << endl;
-    cout << "    'addbook <Bookname> <ISBN/ISSN> <Author> <Class> <isBorrow>' -- add a book to library." << endl;
     cout << "    'search' -- search a book from library." << endl;
     cout << "        'search -n <Bookname>'" << endl;
     cout << "        'search -i <ISBN/ISSN>'" << endl;
