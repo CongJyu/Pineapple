@@ -52,6 +52,13 @@ If you find something go wrong, press `⌃Control` + `C` to terminate the sessio
 
 ## Updates
 
+### 2021-12-19
+
+New version. Fixed some bugs.
+
+- Test Linux version.
+- Add Windows version. Not build yet.
+
 ### 2021-12-18
 
 Add new functions.
@@ -101,10 +108,10 @@ Create this project.
 
 Build succeeded.
 
-### Unix
-
-Build succeeded.
-
 ### Linux
 
 Not build yet.
+
+### Windows
+
+Not test yet. Not build yet.
