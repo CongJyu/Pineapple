@@ -2,7 +2,7 @@
 //  commands.cpp
 //  Library-cli
 //
-//  Created by Rain Chen on 2021/12/13.
+//  Created by Rain Chen on 2021\\12\\13.
 //
 
 #include "commands.hpp"
@@ -13,6 +13,7 @@
 #include <fstream>
 #include <cstring>
 #include <string>
+#include <filesystem>
 #include <unistd.h>
 
 using namespace std;
@@ -27,12 +28,12 @@ void commands(string usr, string dir) {
     while (true) {
         cout << usr << "@digiLibrary ~ # ";
         string cmd;
-        cout << "\033[35m";
+        cout << "";
         cin >> cmd;
-        cout << "\033[0m";
+        cout << "";
         if (cmd == "quit") {
             //  quit this cli
-            cout << "🍍 \033[36mGoodbye!\033[0m" << endl;
+            cout << "🍍 Goodbye!" << endl;
             ulog(usr, "quit", dir);
             break;
         } else if (cmd == "help") {
@@ -42,21 +43,21 @@ void commands(string usr, string dir) {
         } else if (cmd == "version") {
             //  show version
             for (int i = 0; i < 80; i++) {
-                cout << "\033[36m-\033[0m";
+                cout << "-";
             }
             cout << endl;
-            cout << "🍍 digiLibrary v1.2.0" << endl;
+            cout << "🍍 digiLibrary v1.0.0" << endl;
             cout << "Build Dec 2021." << endl;
             cout << "Made by Rain Chen and Zheng ShuYao." << endl;
             for (int i = 0; i < 80; i++) {
-                cout << "\033[36m-\033[0m";
+                cout << "-";
             }
             cout << endl;
             ulog(usr, "version", dir);
         } else if (cmd == "listbook") {
             //  list all the books
-            checkbook.open(dir +"/books.txt");
-            int cnt = countline(dir + "/books.txt");
+            checkbook.open(dir +"\\books.txt");
+            int cnt = countline(dir + "\\books.txt");
             digiLibrary * book = new digiLibrary [cnt];
             int j = 0;
             while (checkbook.eof() != 1) {
@@ -70,7 +71,7 @@ void commands(string usr, string dir) {
             cnt = j - 1;
             checkbook.close();
             for (int i = 0; i < 80; i++) {
-                cout << "\033[36m-\033[0m";
+                cout << "-";
             }
             cout << endl;
             for (int i = 0; i < cnt; i++) {
@@ -82,21 +83,21 @@ void commands(string usr, string dir) {
                 cout << endl;
             }
             for (int i = 0; i < 80; i++) {
-                cout << "\033[36m-\033[0m";
+                cout << "-";
             }
             cout << endl;
             delete [] book;
             ulog(usr, "listbook", dir);
-            cout << "🍍 \033[36mAll books listed. Done!\033[0m" << endl;
+            cout << "🍍 All books listed. Done!" << endl;
         } else if (cmd == "passwd") {
             //  change username and password
             cout << "Loading profiles..." << endl;
-            profile.open(dir + "/admininfo.digilib");
+            profile.open(dir + "\\admininfo.digilib");
             string oldusr, newusr, oldpwd, newpwd;
             profile >> oldusr >> oldpwd;
             profile.close();
-            profile.open(dir + "/admininfo.digilib", ios_base::out|ios_base::trunc);
-            cout << "🍍 \033[36mDone!\033[0m" << endl;
+            profile.open(dir + "\\admininfo.digilib", ios_base::out|ios_base::trunc);
+            cout << "🍍 Done!" << endl;
             cout << "Enter your new username:";
             cin >> newusr;
             cout << "Enter your new password:";
@@ -104,78 +105,78 @@ void commands(string usr, string dir) {
             profile << newusr << " " << newpwd;
             profile.close();
             ulog(usr, "passwd", dir);
-            cout << "🍍 \033[36mProfile updated!\033[0m" << endl;
+            cout << "🍍 Profile updated!" << endl;
             cout << "Use your new username and password to login next time." << endl;
         } else if (cmd == "useradd") {
             //  add a normal user
-            if (!(filesystem::exists(dir + "/nuserinfo.digilib"))) {
+            if (!(filesystem::exists(dir + "\\nuserinfo.digilib"))) {
                 cout << "No current normal user. Initializing..." << endl;
-                ofstream outfile(dir + "/nuserinfo.digilib");
+                ofstream outfile(dir + "\\nuserinfo.digilib");
                 profile.close();
             } else {
                 cout << "Checking normal user profiles..." << endl;
             }
             string nusr, npwd;
             //  stand for 'normal user' and 'normal password'
-            profile.open(dir + "/nuserinfo.digilib", ios_base::app);
-            cout << "New normal user:\033[35m";
+            profile.open(dir + "\\nuserinfo.digilib", ios_base::app);
+            cout << "New normal user:";
             cin >> nusr;
-            cout << "\033[0m'" << nusr << "' password:\033[35m";
+            cout << "'" << nusr << "' password:";
             cin >> npwd;
-            cout << "\033[0m";
+            cout << "";
             profile << nusr << " " << npwd << endl;
             profile.close();
             ulog(usr, "useradd", dir);
-            cout << "🍍 \033[36mNew normal user added! Done!\033[0m" << endl;
+            cout << "🍍 New normal user added! Done!" << endl;
         } else if (cmd == "listuser") {
             //  list all normal users, not super users
-            if (!(filesystem::exists(dir + "/nuserinfo.digilib"))) {
+            if (!(filesystem::exists(dir + "\\nuserinfo.digilib"))) {
                 cout << "No current normal user. Initializing..." << endl;
-                ofstream outfile(dir + "/nuserinfo.digilib");
+                ofstream outfile(dir + "\\nuserinfo.digilib");
                 outfile.close();
                 ulog(usr, "listuser", dir);
-                cout << "🍍 \033[36mNo valid users. Done!\033[0m" << endl;
+                cout << "🍍 No valid users. Done!" << endl;
             } else {
-                profile.open(dir + "/nuserinfo.digilib");
-                countline(dir + "/nuserinfo.digilib");
-                int cnt = countline(dir + "/nuserinfo.digilib");
+                profile.open(dir + "\\nuserinfo.digilib");
+                countline(dir + "\\nuserinfo.digilib");
+                int cnt = countline(dir + "\\nuserinfo.digilib");
                 nusProfile * users = new nusProfile [cnt];
                 for (int i = 0; i < cnt; i++) {
                     profile >> users[i].nusername >> users[i].npassword;
                 }
                 profile.close();
                 for (int i = 0; i < 80; i++) {
-                    cout << "\033[36m-\033[0m";
+                    cout << "-";
                 }
                 cout << endl;
                 for (int i = 0; i < cnt; i++) {
                     cout << users[i].nusername << "    *******" << endl;
                 }
                 for (int i = 0; i < 80; i++) {
-                    cout << "\033[36m-\033[0m";
+                    cout << "-";
                 }
                 cout << endl;
                 ulog(usr, "listuser", dir);
                 delete [] users;
-                cout << "🍍 \033[36m" << cnt << " user(s) in total. Done!\033[0m" << endl;
+                cout << "🍍 " << cnt << " user(s) in total. Done!" << endl;
             }
         } else if (cmd == "resetpwd") {
             //  set specific normal user's password to default
             string resetuser;
             cin >> resetuser;
-            if (!(filesystem::exists(dir + "/nuserinfo.digilib"))) {
+            if (!(filesystem::exists(dir + "\\nuserinfo.digilib"))) {
                 cout << "No current normal user. Initializing..." << endl;
-                ofstream outfile(dir + "/nuserinfo.digilib");
+                ofstream outfile(dir + "\\nuserinfo.digilib");
                 profile.close();
                 ulog(usr, "resetpwd", dir);
-                cout << "🍍 \033[36mNo valid users. Done!\033[0m" << endl;
+                cout << "🍍 No valid users. Done!" << endl;
             } else {
                 //  reset user -- the username whose password will be reset
                 cout << "Loading profiles..." << endl;
-                profile.open(dir + "/nuserinfo.digilib");
+                profile.open(dir + "\\nuserinfo.digilib");
                 int mark = 0;
-                countline(dir + "/nuserinfo.digilib");
-                int cnt = countline(dir + "/nuserinfo.digilib");
+                countline(dir + "\\nuserinfo.digilib");
+                int cnt = countline(dir + "\\nuserinfo.digilib");
                 nusProfile * users = new nusProfile [cnt];
                 for (int i = 0; i < cnt; i++) {
                     profile >> users[i].nusername >> users[i].npassword;
@@ -186,9 +187,9 @@ void commands(string usr, string dir) {
                 profile.close();
                 if (mark == 0) {
                     ulog(usr, "resetpwd", dir);
-                    cout << "🍍 \033[36mThere is no user '" << resetuser << "'. Done.\033[0m" << endl;
+                    cout << "🍍 There is no user '" << resetuser << "'. Done." << endl;
                 } else {
-                    profile.open(dir + "/nuserinfo.digilib", ios_base::out|ios_base::trunc);
+                    profile.open(dir + "\\nuserinfo.digilib", ios_base::out|ios_base::trunc);
                     for (int i = 0; i < cnt; i++) {
                         if (i == mark) {
                             profile << users[i].nusername
@@ -200,7 +201,7 @@ void commands(string usr, string dir) {
                     }
                     profile.close();
                     ulog(usr, "resetpwd", dir);
-                    cout << "🍍 \033[36m'" << resetuser << "' password reseted to default. Done.\033[0m" << endl;
+                    cout << "🍍 '" << resetuser << "' password reseted to default. Done." << endl;
                 }
                 delete [] users;
             }
@@ -214,7 +215,7 @@ void commands(string usr, string dir) {
             >> newbooklocation;
             cin >> newbookborrow;
             //  open book list
-            checkbook.open(dir + "/books.txt", ios_base::app);
+            checkbook.open(dir + "\\books.txt", ios_base::app);
             checkbook << newbookname << " "
             << newbookisbn << " "
             << newbookauthor << " "
@@ -222,26 +223,26 @@ void commands(string usr, string dir) {
             << newbookborrow << endl;
             checkbook.close();
             ulog(usr, "addbook", dir);
-            cout << "🍍 " << "\033[36mDone. The book '" << newbookname << "' is added.\033[0m" << endl;
+            cout << "🍍 " << "Done. The book '" << newbookname << "' is added." << endl;
         } else if (cmd == "clearlog") {
             //  clear log info
-            if (!(filesystem::exists(dir + "/digi.log"))) {
+            if (!(filesystem::exists(dir + "\\digi.log"))) {
                 cout << "No current log info. Initializing..." << endl;
                 //  create the log file
-                ofstream outfile(dir + "/digi.log");
+                ofstream outfile(dir + "\\digi.log");
                 profile.close();
             }
-            profile.open(dir + "/digi.log", ios_base::out|ios_base::trunc);
+            profile.open(dir + "\\digi.log", ios_base::out|ios_base::trunc);
             profile.close();
             ulog(usr, "clearlog", dir);
-            cout << "🍍 \033[36mDone. All log info cleared.\033[0m" << endl;
+            cout << "🍍 Done. All log info cleared." << endl;
         } else if (cmd == "search") {
             //  search books
             cout << "Loading books...";
             char c[2];    //  receive command
-            checkbook.open(dir + "/books.txt");
-            countline(dir + "/books.txt");
-            int cnt = countline(dir + "/books.txt");
+            checkbook.open(dir + "\\books.txt");
+            countline(dir + "\\books.txt");
+            int cnt = countline(dir + "\\books.txt");
             digiLibrary * book = new digiLibrary [cnt];
             int j = 0;
             while (checkbook.eof() != 1) {
@@ -259,7 +260,7 @@ void commands(string usr, string dir) {
             cin >> c;
             cout << "Searching..." << endl;
             for (int i = 0; i < 80; i++) {
-                cout << "\033[36m-\033[0m";
+                cout << "-";
             }
             cin >> searchbook;
             cout << endl;
@@ -299,18 +300,18 @@ void commands(string usr, string dir) {
                     break;
             }
             for (int i = 0; i < 80; i++) {
-                cout << "\033[36m-\033[0m";
+                cout << "-";
             }
             cout << endl;
             delete [] book;
             ulog(usr, "search", dir);
-            cout << "🍍 \033[36mSearching done. The results are listed above.\033[0m" << endl;
+            cout << "🍍 Searching done. The results are listed above." << endl;
         } else if (cmd == "delbook") {
             //  delete a book
             string targetbook;
             cin >> targetbook;
-            checkbook.open(dir + "/books.txt");
-            int cnt = countline(dir + "/books.txt");
+            checkbook.open(dir + "\\books.txt");
+            int cnt = countline(dir + "\\books.txt");
             digiLibrary * book = new digiLibrary [cnt];
             int j = 0;
             while (checkbook.eof() != 1) {
@@ -323,7 +324,7 @@ void commands(string usr, string dir) {
             }
             cnt = j - 1;
             checkbook.close();
-            checkbook.open(dir + "/books.txt", ios_base::out|ios_base::trunc);
+            checkbook.open(dir + "\\books.txt", ios_base::out|ios_base::trunc);
             for (int i = 0; i < cnt; i++) {
                 if (book[i].bname == targetbook) {
                     continue;
@@ -343,18 +344,18 @@ void commands(string usr, string dir) {
             //  delete a user
             string targetuser;
             cin >> targetuser;
-            if (!(filesystem::exists(dir + "/nuserinfo.digilib"))) {
+            if (!(filesystem::exists(dir + "\\nuserinfo.digilib"))) {
                 cout << "No current normal user. Initializing..." << endl;
-                ofstream outfile(dir + "/nuserinfo.digilib");
+                ofstream outfile(dir + "\\nuserinfo.digilib");
                 profile.close();
-                ulog(usr, "resetpwd", dir);
-                cout << "🍍 \033[36mNo valid users. Done!\033[0m" << endl;
+                ulog(usr, "resetpwd");
+                cout << "🍍 No valid users. Done!" << endl;
             } else {
                 cout << "Loading profiles..." << endl;
-                profile.open(dir + "/nuserinfo.digilib");
+                profile.open(dir + "\\nuserinfo.digilib");
                 int mark = 0;
-                countline(dir + "/nuserinfo.digilib");
-                int cnt = countline(dir + "/nuserinfo.digilib");
+                countline(dir + "\\nuserinfo.digilib");
+                int cnt = countline(dir + "\\nuserinfo.digilib");
                 nusProfile * users = new nusProfile [cnt];
                 for (int i = 0; i < cnt; i++) {
                     profile >> users[i].nusername >> users[i].npassword;
@@ -365,9 +366,9 @@ void commands(string usr, string dir) {
                 profile.close();
                 if (mark == 0) {
                     ulog(usr, "resetpwd", dir);
-                    cout << "🍍 \033[36mThere is no user '" << targetuser << "'. Done.\033[0m" << endl;
+                    cout << "🍍 There is no user '" << targetuser << "'. Done." << endl;
                 } else {
-                    profile.open(dir + "/nuserinfo.digilib", ios_base::out|ios_base::trunc);
+                    profile.open(dir + "\\nuserinfo.digilib", ios_base::out|ios_base::trunc);
                     for (int i = 0; i < cnt; i++) {
                         if (i == mark) {
                             continue;
@@ -378,7 +379,7 @@ void commands(string usr, string dir) {
                     }
                     profile.close();
                     ulog(usr, "userdel", dir);
-                    cout << "🍍 \033[36mDone. '" << targetuser << "' is deleted.\033[0m" << endl;
+                    cout << "🍍 Done. '" << targetuser << "' is deleted." << endl;
                 }
                 delete [] users;
             }
@@ -387,9 +388,9 @@ void commands(string usr, string dir) {
             string targetuser;
             cin >> targetuser;
             cout << "Loading books..." << endl;
-            checkbook.open(dir + "/" + targetuser + ".digidata");
-            countline(dir + "/" + targetuser + ".digidata");
-            int cnt = countline(dir + "/" + usr + ".digidata");
+            checkbook.open(dir + "\\" + targetuser + ".digidata");
+            countline(dir + "\\" + targetuser + ".digidata");
+            int cnt = countline(dir + "\\" + usr + ".digidata");
             digiLibrary * book = new digiLibrary [cnt];
             int j = 0;
             while (checkbook.eof() != 1) {
@@ -405,7 +406,7 @@ void commands(string usr, string dir) {
             cout << "Current books '"
             << targetuser << "'ve borrowed:" << endl;
             for (int i = 0; i < 80; i++) {
-                cout << "\033[36m-\033[0m";
+                cout << "-";
             }
             cout << endl;
             for (int i = 0; i < cnt; i++) {
@@ -417,15 +418,15 @@ void commands(string usr, string dir) {
                 cout << endl;
             }
             for (int i = 0; i < 80; i++) {
-                cout << "\033[36m-\033[0m";
+                cout << "-";
             }
             cout << endl;
             delete [] book;
             ulog(usr, "lsborrow", dir);
-            cout << "🍍 \033[36mDone. All '"
-            << targetuser << "''s books are listed.\033[0m" << endl;
+            cout << "🍍 Done. All '"
+            << targetuser << "''s books are listed." << endl;
         } else {
-            cout << "\033[41mERR! Unknown command '" << cmd << "'.\033[0m" << endl;
+            cout << "ERR! Unknown command '" << cmd << "'." << endl;
             cout << "Type 'help' to see user guides." << endl;
         }
     }
@@ -435,7 +436,7 @@ void commands(string usr, string dir) {
 void show_admin_help() {
     cout << "🍍 Welcome to digiLibrary. See the commands below:" << endl;
     for (int i = 0; i < 80; i++) {
-        cout << "\033[36m-\033[0m";
+        cout << "-";
     }
     cout << endl;
     cout << "Basic commands:" << endl;
@@ -451,16 +452,16 @@ void show_admin_help() {
     cout << "    'userdel <Username>' -- delete a user." << endl;
     cout << "Book Management:" << endl;
     cout << "    'listbook' -- list all the books." << endl;
-    cout << "    'addbook <Bookname> <ISBN/ISSN> <Author> <Class> <isBorrow>' -- add a book to library." << endl;
+    cout << "    'addbook <Bookname> <ISBN\\ISSN> <Author> <Class> <isBorrow>' -- add a book to library." << endl;
     cout << "    'search' -- search a book from library." << endl;
     cout << "        'search -n <Bookname>'" << endl;
-    cout << "        'search -i <ISBN/ISSN>'" << endl;
+    cout << "        'search -i <ISBN\\ISSN>'" << endl;
     cout << "        'search -a <Author>'" << endl;
     cout << "        'search -l <Class>'" << endl;
     cout << "    'delbook <Bookname>' -- delete a book from library." << endl;
     cout << "    'lsborrow <Username>' -- see a user's borrowed books." << endl;
     for (int i = 0; i < 80; i++) {
-        cout << "\033[36m-\033[0m";
+        cout << "-";
     }
     cout << endl;
     return;

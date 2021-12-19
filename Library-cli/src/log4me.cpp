@@ -13,21 +13,21 @@ using namespace std;
 fstream log;
 
 //  the log module -- write down the logs
-int ulog(string usr, string command) {
+int ulog(string usr, string command, string datapath) {
     //  get time
     time_t timep;
     time(&timep);
     char tmp[256];
     strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S", localtime(&timep));
     //  is the log file existed
-    if (!(filesystem::exists("/Users/rainchen/digiLibrary/digi.log"))) {
+    if (!(filesystem::exists(datapath + "/digi.log"))) {
         cout << "Initializing log..." << endl;
-        ofstream outfile("/Users/rainchen/digiLibrary/digi.log");
+        ofstream outfile(datapath + "/digi.log");
         log.close();
     }
     
     //  open log file
-    log.open("/Users/rainchen/digiLibrary/digi.log", ios_base::app);
+    log.open(datapath + "/digi.log", ios_base::app);
     
     //  print log
     if (command == "first") {

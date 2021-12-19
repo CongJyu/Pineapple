@@ -23,7 +23,7 @@ fstream profilen;
 void show_user_help();
 
 void commandn(string usr, string dir) {
-    ulog(usr, "first");
+    ulog(usr, "first", dir);
     while (true) {
         //  is user data existes
         string userpath = dir + "/" + usr + ".digidata";
@@ -44,25 +44,25 @@ void commandn(string usr, string dir) {
         if (cmd == "quit") {
             //  quit this cli
             cout << "🍍 \033[36mGoodbye!\033[0m" << endl;
-            ulog(usr, "quit");
+            ulog(usr, "quit", dir);
             break;
         } else if (cmd == "help") {
             //  show help
             show_user_help();
-            ulog(usr, "help");
+            ulog(usr, "help", dir);
         } else if (cmd == "version") {
             for (int i = 0; i < 80; i++) {
                 cout << "\033[36m-\033[0m";
             }
             cout << endl;
-            cout << "🍍 digiLibrary v1.0.0" << endl;
+            cout << "🍍 digiLibrary v1.2.0" << endl;
             cout << "Build Dec 2021." << endl;
             cout << "Made by Rain Chen and Zheng ShuYao." << endl;
             for (int i = 0; i < 80; i++) {
                 cout << "\033[36m-\033[0m";
             }
             cout << endl;
-            ulog(usr, "version");
+            ulog(usr, "version", dir);
         } else if (cmd == "listbook") {
             //  list all the books
             bookn.open(dir + "/books.txt");
@@ -96,7 +96,7 @@ void commandn(string usr, string dir) {
                 cout << "\033[36m-\033[0m";
             }
             cout << endl;
-            ulog(usr, "listbook");
+            ulog(usr, "listbook", dir);
             cout << "🍍 \033[36mAll books listed. Done!\033[0m" << endl;
         } else if (cmd == "passwd") {
             //  change password
@@ -132,7 +132,7 @@ void commandn(string usr, string dir) {
                 }
             }
             profilen.close();
-            ulog(usr, "passwd");
+            ulog(usr, "passwd", dir);
             delete [] nus;
             cout << "🍍 \033[36mDone. Your password has been changed.\033[0m" << endl;
         } else if (cmd == "search") {
@@ -203,7 +203,7 @@ void commandn(string usr, string dir) {
             }
             cout << endl;
             delete [] nbook;
-            ulog(usr, "search");
+            ulog(usr, "search", dir);
             cout << "🍍 \033[36mSearching done. The results are listed above.\033[0m" << endl;
         } else if (cmd == "borrow") {
             string borrowbook;
@@ -237,7 +237,7 @@ void commandn(string usr, string dir) {
             }
             delete [] nbook;
             bookn.close();
-            ulog(usr, "borrow");
+            ulog(usr, "borrow", dir);
             cout << "🍍 \033[36mDone. Borrow '" << borrowbook << "' from library.\033[0m" << endl;
         } else if (cmd == "return") {
             string returnbook;
@@ -270,7 +270,7 @@ void commandn(string usr, string dir) {
                 }
             }
             bookn.close();
-            ulog(usr, "return");
+            ulog(usr, "return", dir);
             cout << "🍍 \033[36mDone. Return '" << returnbook << "' to library.\033[0m" << endl;
         } else if (cmd == "lsmybook") {
             //  list the books you've borrowed
@@ -308,7 +308,7 @@ void commandn(string usr, string dir) {
             }
             cout << endl;
             delete [] nbook;
-            ulog(usr, "lsmybook");
+            ulog(usr, "lsmybook", dir);
             cout << "🍍 \033[36mDone. All your books are listed." << endl;
             cout << "Do not forget to return them on time.\033[0m" << endl;
         } else {

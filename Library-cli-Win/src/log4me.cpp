@@ -20,14 +20,14 @@ int ulog(string usr, string command, string datapath) {
     char tmp[256];
     strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S", localtime(&timep));
     //  is the log file existed
-    if (!(filesystem::exists(datapath + "/digi.log"))) {
+    if (!(filesystem::exists(datapath + "\\digi.log"))) {
         cout << "Initializing log..." << endl;
-        ofstream outfile(datapath + "/digi.log");
+        ofstream outfile(datapath + "\\digi.log");
         log.close();
     }
     
     //  open log file
-    log.open(datapath + "/digi.log", ios_base::app);
+    log.open(datapath + "\\digi.log", ios_base::app);
     
     //  print log
     if (command == "first") {

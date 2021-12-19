@@ -5,7 +5,7 @@
 //  Created by Rain Chen on 2021/12/13.
 //
 
-#include "welcome.hpp"
+#include "../include/welcome.hpp"
 #include <iostream>
 using namespace std;
 void Welcome::you() {

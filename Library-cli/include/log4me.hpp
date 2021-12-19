@@ -18,6 +18,6 @@
 using namespace std;
 
 //  user log
-int ulog(string, string);
+int ulog(string, string, string);
 
 #endif /* log4me_hpp */
