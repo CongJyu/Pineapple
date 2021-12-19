@@ -15,10 +15,10 @@
 #include <filesystem>
 
 //  self-defined
-#include "welcome.hpp"
-#include "commands.hpp"
-#include "commandn.hpp"
-#include "log4me.hpp"
+#include "../include/welcome.hpp"
+#include "../include/commands.hpp"
+#include "../include/commandn.hpp"
+#include "../include/log4me.hpp"
 
 //  namespace std and some C++17 features
 using namespace std;

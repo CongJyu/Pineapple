@@ -5,7 +5,7 @@
 //  Created by Rain Chen on 2021/12/14.
 //
 
-#include "log4me.hpp"
+#include "../include/log4me.hpp"
 #include <ctime>
 
 using namespace std;

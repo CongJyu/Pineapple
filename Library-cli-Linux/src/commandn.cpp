@@ -5,9 +5,9 @@
 //  Created by Rain Chen on 2021/12/14.
 //
 
-#include "commandn.hpp"
-#include "log4me.hpp"
-#include "countline.hpp"
+#include "../include/commandn.hpp"
+#include "../include/log4me.hpp"
+#include "../include/countline.hpp"
 
 #include <iostream>
 #include <fstream>
