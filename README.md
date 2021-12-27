@@ -52,6 +52,14 @@ If you find something go wrong, press `⌃Control` + `C` to terminate the sessio
 
 ## Updates
 
+### 2021-12-27
+
+New version. Fixed some bugs.
+
+- We rebuilt this CLI.
+- Now this source code is available for both macOS and Linux.
+- You can't run it on Linux yet.
+
 ### 2021-12-19
 
 New version. Fixed some bugs.

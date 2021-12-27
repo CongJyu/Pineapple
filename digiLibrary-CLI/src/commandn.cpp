@@ -48,7 +48,7 @@ void commandn(string usr, string dir) {
                 cout << "\033[36m-\033[0m";
             }
             cout << endl;
-            cout << "🍍 digiLibrary v1.2.0" << endl;
+            cout << "🍍 digiLibrary v1.3.0" << endl;
             cout << "Build Dec 2021." << endl;
             cout << "Made by Rain Chen and Zheng ShuYao." << endl;
             for (int i = 0; i < 80; i++) {
