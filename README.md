@@ -16,7 +16,7 @@ This is a simple CLI that can help you check your books list stored on your disk
 
 Follow the tips, enter your data dir. This folder will be used to store all the information about this library, so please put your library's booklist(for example: `books.txt`) in it as well.
 
-The data dir must be like this: `/Users/rainchen/digiLibrary`.
+The data dir must be like this: `/Users/rainchen/Documents/digiLibrary`.
 
 ### Log As Super User Mode (SU, also Administrator, root)
 
@@ -51,6 +51,13 @@ This will show you the information about this software, including name of the so
 If you find something go wrong, press `⌃Control` + `C` to terminate the session.
 
 ## Updates
+
+### 2022-01-01
+
+New version. Rebuilt whole project.
+
+- Rebuilt this CLI with OOP methods.
+- Make the CLI smaller and faster.
 
 ### 2021-12-27
 

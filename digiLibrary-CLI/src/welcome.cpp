@@ -1,13 +1,12 @@
-//
 //  welcome.cpp
-//  Library-cli
 //
-//  Created by Rain Chen on 2021/12/13.
-//
+//  compile with welcome.h
+//  2021-12-31 Rain Chen
 
-#include "../include/welcome.hpp"
+#include "../include/welcome.h"
 using namespace std;
-void Welcome::you() {
+//  show welcome messages
+void Welcome::display_welcome() {
     cout << endl;
     cout << "\033[31m dP  oo  dP                                                \033[0m" << endl;
     cout << "\033[31m 88      88                                                \033[0m" << endl;

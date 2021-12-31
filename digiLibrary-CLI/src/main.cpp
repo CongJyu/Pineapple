@@ -1,121 +1,205 @@
-//
 //  main.cpp
-//  Library-cli
 //
-//  Created by Rain Chen on 2021/12/13.
-//
+//  this is the main process of digiLibrary
+//  2021-12-31 Rain Chen
 
-//  !!! The book list must be in UTF-8 encoding !!!
-
-//  header files
-#include "../include/welcome.hpp"
-#include "../include/commands.hpp"
-#include "../include/commandn.hpp"
-#include "../include/log4me.hpp"
-#include "../include/countline.hpp"
-//  namespace std and some C++17 features
+//  !!! the "books.txt" file must be UTF-8 encoding !!!
+#include "../include/welcome.h"
+#include "../include/account.h"
+#include "../include/usermode.h"
+#include "../include/log4lib.h"
+#include "../include/book.h"
+//  using namespace, use some C++ 17 features
 using namespace std;
-//  the account structure -- store user accounts
-struct accountInfo {
-    string username;
-    string password;
-};
-//  infile class -- read and write the files
-fstream infile;
-//  mode
-int usrmode = 0;
-//  application data and user data
-string dir;
-//  main function
+//  account file processing
+fstream account;
+//  user dir
+string dir_location;
+//  main process
 int main() {
-    //  display welcome messages
-    Welcome welcome;
-    welcome.you();
+    //  show welcome messages
+    Welcome you;
+    you.display_welcome();
+    //  config user data dir
     cout << "\033[36m!~IMPORTANT~!\033[0m" << endl;
-    cout << "Configure your data dir(e.g. /Users/rainchen/digiLibrary):";
-    cin >> dir;
-    //  check the account info
-    if (!(filesystem::exists(dir + "/admininfo.digilib"))) {
-        ofstream outfile(dir + "/admininfo.digilib");
-        infile.close();
-        infile.open(dir + "/admininfo.digilib");
-        infile << "admin" << " " << "123456" << endl;
-        infile.close();
-        infile.open(dir + "/admininfo.digilib");
-        cout << "🍍 Restored admin account...\033[36mDone!\033[0m" << endl;
-        cout << "Please login." << endl;
-    } else {
-        infile.open(dir + "/admininfo.digilib");
-        cout << "🍍 Checking...\033[36mDone!\033[0m" << endl;
-        cout << "Please login." << endl;
-    }
-    //  read all user info
-    accountInfo admin;
-    infile >> admin.username >> admin.password;
-    //  login
-    string usr;
-    string pwd;
-    char login;
-    cout << "'s' -- administrator" << endl;
-    cout << "'n' -- normal user" << endl;
-    cout << "root@digiLib ~ # ";
-    cout << "\033[35m";
-    cin >> login;
-    cout << "\033[0m";
-    while (login == 's') {
-        cout << "USERNAME:\033[35m";
-        cin >> usr;
-        cout << "\033[0mPASSWORD:\033[35m";
-        cin >> pwd;
-        cout << "\033[0m";
-        if ((usr == admin.username) && (pwd == admin.password)) {
-            cout << "🍍 \033[36mLogin successfully!\033[0m" << endl;
-            usrmode = 1;
-            break;
+    cout << "Configure your data dir(e.g. /Users/rainchen/Documents/digiLibrary):";
+    cin >> dir_location;
+    //  choose your user mode
+    int usermode = judge_usermode();
+    if (usermode == 1) {
+        string accountdata = dir_location + "/admininfo.digilib";
+        ifstream fin(accountdata);
+        if (!fin) {
+            //  if file do not exist, create and initialize
+            fin.close();
+            cout << "Profiles do not exist. Initializing..." << endl;
+            ofstream outfile(accountdata);
+            account.close();
+            account.open(accountdata);
+            account << "admin" << " " << "123456" << endl;
+            account.close();
+            cout << "Restored admin account...\033[36mDone!\033[0m" << endl;
+            cout << "Please login." << endl;
         } else {
-            cout << "\033[41mERR! Invalid username or password.\033[0m" << endl;
+            //  if exist, open
+            fin.close();
+            cout << "Checking...\033[36mDone!\033[0m" << endl;
+            cout << "Please login." << endl;
         }
-    }
-    infile.close();
-    accountInfo nuser[10000];
-    int cnt = 0;
-    infile.open(dir + "/nuserinfo.digilib");
-    while (infile.eof() != 1) {
-        infile >> nuser[cnt].username >> nuser[cnt].password;
-        cnt++;
-    }
-    cnt--;
-    while (login == 'n') {
-        cout << "USERNAME:\033[35m";
-        cin >> usr;
-        cout << "\033[0mPASSWORD:\033[35m";
-        cin >> pwd;
-        cout << "\033[0m";
-        for (int i = 0; i < cnt; i++) {
-            if ((usr == nuser[i].username) && (pwd == nuser[i].password)) {
-                cout << "🍍 \033[36mLogin successfully!\033[0m" << endl;
-                usrmode = 2;
+        Account admin;
+        string username = admin.login(accountdata);
+        //  user commands
+        log4lib(username, "first", dir_location);
+        while (1) {
+            Book control;
+            cout << username << "@digiLibrary ~ # \033[35m";
+            string cmd;
+            cin >> cmd;
+            cout << "\033[0m";
+            if (cmd == "help") {
+                //  seek for help
+                log4lib(username, "help", dir_location);
+                control.help();
+            } else if (cmd == "quit") {
+                //  quit this program
+                log4lib(username, "quit", dir_location);
+                control.quit();
                 break;
+            } else if (cmd == "version") {
+                //  show version information
+                log4lib(username, "version", dir_location);
+                control.version();
+            } else if (cmd == "passwd") {
+                //  change password
+                log4lib(username, "passwd", dir_location);
+                admin.passwd(accountdata);
+            } else if (cmd == "lsbook") {
+                //  list all books
+                log4lib(username, "lsbook", dir_location);
+                control.lsbook(dir_location);
+            } else if (cmd == "search") {
+                //  search some books
+                log4lib(username, "search", dir_location);
+                control.search(dir_location);
+            } else if (cmd == "lsuser") {
+                //  list all school users
+                log4lib(username, "lsuser", dir_location);
+                admin.lsuser(dir_location);
+            } else if (cmd == "resetpwd") {
+                //  reset someone's password
+                log4lib(username, "resetpwd", dir_location);
+                admin.resetpwd(dir_location);
+            } else if (cmd == "clearlog") {
+                //  clear log
+                admin.clog(dir_location);
+                log4lib(username, "clearlog", dir_location);
+            } else if (cmd == "delbook") {
+                //  delete a book
+                log4lib(username, "delbook", dir_location);
+                control.delbook(dir_location);
+            } else if (cmd == "addbook") {
+                //  add a book
+                log4lib(username, "addbook", dir_location);
+                control.addbook(dir_location);
+            } else if (cmd == "lsborrow") {
+                //  show someone's borrowed books
+                log4lib(username, "lsborrow", dir_location);
+                control.lsborrow(dir_location);
+            } else if (cmd == "useradd") {
+                //  add a user
+                log4lib(username, "useradd", dir_location);
+                admin.useradd(dir_location);
+            } else if (cmd == "userdel") {
+                //  delete a user
+                log4lib(username, "userdel", dir_location);
+                admin.userdel(dir_location);
             } else {
-                continue;
+                //  unknown commands
+                cout << "\033[41mERR! Unknown command '" << cmd << "'.\033[0m" << endl;
+                cout << "Type 'help' to see user guides." << endl;
             }
         }
-        //  if login successfully, quit login module
-        if (usrmode == 2) {
-            break;
+    } else if (usermode == 2) {
+        string accountdata = dir_location + "/nuserinfo.digilib";
+        ifstream fin(accountdata);
+        if (!fin) {
+            //  if file do not exist, create and initialize
+            fin.close();
+            cout << "Profiles do not exist. Initializing..." << endl;
+            ofstream outfile(accountdata);
+            account.close();
+            account.open(accountdata);
+            account.close();
+            cout << "Restored admin account...\033[36mDone!\033[0m" << endl;
+            cout << "Please login." << endl;
         } else {
-            cout << "\033[41mERR! Invalid username or password.\033[0m" << endl;
+            //  if exist, open
+            fin.close();
+            cout << "Checking...\033[36mDone!\033[0m" << endl;
+            cout << "Please login." << endl;
         }
-    }
-    infile.close();
-    //  commandline input
-    if (usrmode == 1) {
-        //  SU command
-        commands(usr, dir);
-    } else if (usrmode == 2) {
-        //  NU command
-        commandn(usr, dir);
+        Account students;
+        string username = students.stulogin(accountdata);
+        //  user commands
+        while (1) {
+            Book stu;
+            cout << username << "@digiLibrary ~ % \033[35m";
+            string cmd;
+            cin >> cmd;
+            cout << "\033[0m";
+            if (cmd == "help") {
+                //  seek for help
+                log4lib(username, "help", dir_location);
+                stu.help();
+            } else if (cmd == "quit") {
+                //  quit this program
+                log4lib(username, "quit", dir_location);
+                stu.quit();
+                break;
+            } else if (cmd == "version") {
+                //  show version information
+                log4lib(username, "version", dir_location);
+                stu.version();
+            } else if (cmd == "passwd") {
+                //  change password
+                log4lib(username, "passwd", dir_location);
+                students.passwd(accountdata);
+            } else if (cmd == "lsbook") {
+                //  list all books
+                log4lib(username, "lsbook", dir_location);
+                stu.lsbook(dir_location);
+            } else if (cmd == "search") {
+                //  search some books
+                log4lib(username, "search", dir_location);
+                stu.search(dir_location);
+            } else if (cmd == "lsuser") {
+                //  list all school users
+                log4lib(username, "lsuser", dir_location);
+                students.lsuser(dir_location);
+            } else if (cmd == "resetpwd") {
+                //  reset someone's password
+                log4lib(username, "resetpwd", dir_location);
+                students.resetpwd(dir_location);
+            } else if (cmd == "lsmybook") {
+                //  list books i borrowed
+                log4lib(username, "lsmybook", dir_location);
+                stu.lsmybook(dir_location, username);
+            } else if (cmd == "borrow") {
+                //  borrow a book from library
+                log4lib(username, "borrow", dir_location);
+                stu.borrow(dir_location, username);
+            } else if (cmd == "return") {
+                //  borrow a book from library
+                log4lib(username, "return", dir_location);
+                stu.returnbook(dir_location, username);
+            } else {
+                //  unknown commands
+                cout << "\033[41mERR! Unknown command '" << cmd << "'.\033[0m" << endl;
+                cout << "Type 'help' to see user guides." << endl;
+            }
+        }
     } else {
+        //  wrong aommand
         cout << "\033[41mERR! Unknown error.\033[0m" << endl;
     }
     return 0;
