@@ -27,6 +27,7 @@ void Book::help() {
     cout << "    'lsuser' -- list all users." << endl;
     cout << "    'useradd' -- add a user." << endl;
     cout << "    'userdel <Username>' -- delete a user." << endl;
+    cout << "    'resetpwd <Username>' -- reset someone's passwprd." << endl;
     cout << "Book Management:" << endl;
     cout << "    'lsbook' -- list all the books." << endl;
     cout << "    'addbook <Bookname> <ISBN/ISSN> <Author> <Type> <Number>' -- add a book to library." << endl;
@@ -36,6 +37,8 @@ void Book::help() {
     cout << "    'return <ISBN/ISSN>' -- return a book to library." << endl;
     cout << "    'lsmybook' -- list the books you've borrowed." << endl;
     cout << "    'lsborrow <Username>' -- see a user's borrowed books." << endl;
+    cout << "Program Management:" << endl;
+    cout << "    'clearlog' -- clear program log information." << endl;
     for (int i = 0; i < 80; i++) {
         cout << "\033[36m-\033[0m";
     }
@@ -48,7 +51,7 @@ void Book::version() {
         cout << "\033[36m-\033[0m";
     }
     cout << endl;
-    cout << "🍍 digiLibrary v1.4.0" << endl;
+    cout << "🍍 digiLibrary v1.4.3" << endl;
     cout << "Build Dec 2021." << endl;
     cout << "Made by Rain Chen and Zheng ShuYao." << endl;
     for (int i = 0; i < 80; i++) {
@@ -57,7 +60,7 @@ void Book::version() {
     cout << endl;
     return;
 }
-//  quir
+//  quit
 void Book::quit() {
     cout << "🍍 \033[36mGoodbye!\033[0m" << endl;
     return;

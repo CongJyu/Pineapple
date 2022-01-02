@@ -113,6 +113,21 @@ int main() {
                 //  delete a user
                 log4lib(username, "userdel", dir_location);
                 admin.userdel(dir_location);
+            } else if (cmd == "lsmybook") {
+                //  list books i borrowed
+                //  log4lib(username, "lsmybook", dir_location);
+                //  control.lsmybook(dir_location, username);
+                cout << "\033[41mERR! Administrator cannot borrow or return books.\033[0m" << endl;
+            } else if (cmd == "borrow") {
+                //  borrow a book from library
+                //  log4lib(username, "borrow", dir_location);
+                //  control.borrow(dir_location, username);
+                cout << "\033[41mERR! Administrator cannot borrow or return books.\033[0m" << endl;
+            } else if (cmd == "return") {
+                //  borrow a book from library
+                //  log4lib(username, "return", dir_location);
+                //  control.returnbook(dir_location, username);
+                cout << "\033[41mERR! Administrator cannot borrow or return books.\033[0m" << endl;
             } else {
                 //  unknown commands
                 cout << "\033[41mERR! Unknown command '" << cmd << "'.\033[0m" << endl;
@@ -174,12 +189,43 @@ int main() {
                 stu.search(dir_location);
             } else if (cmd == "lsuser") {
                 //  list all school users
-                log4lib(username, "lsuser", dir_location);
-                students.lsuser(dir_location);
+                //  log4lib(username, "lsuser", dir_location);
+                //  students.lsuser(dir_location);
+                cout << "\033[41mERR! You must be a administrator to use this command.\033[0m" << endl;
             } else if (cmd == "resetpwd") {
                 //  reset someone's password
                 log4lib(username, "resetpwd", dir_location);
                 students.resetpwd(dir_location);
+            } else if (cmd == "clearlog") {
+                //  clear log
+                //  students.clog(dir_location);
+                //  log4lib(username, "clearlog", dir_location);
+                cout << "\033[41mERR! You must be a administrator to use this command.\033[0m" << endl;
+            } else if (cmd == "delbook") {
+                //  delete a book
+                //  log4lib(username, "delbook", dir_location);
+                //  stu.delbook(dir_location);
+                cout << "\033[41mERR! You must be a administrator to use this command.\033[0m" << endl;
+            } else if (cmd == "addbook") {
+                //  add a book
+                //  log4lib(username, "addbook", dir_location);
+                //  stu.addbook(dir_location);
+                cout << "\033[41mERR! You must be a administrator to use this command.\033[0m" << endl;
+            } else if (cmd == "lsborrow") {
+                //  show someone's borrowed books
+                //  log4lib(username, "lsborrow", dir_location);
+                //  stu.lsborrow(dir_location);
+                cout << "\033[41mERR! You must be a administrator to use this command.\033[0m" << endl;
+            } else if (cmd == "useradd") {
+                //  add a user
+                //  log4lib(username, "useradd", dir_location);
+                //  students.useradd(dir_location);
+                cout << "\033[41mERR! You must be a administrator to use this command.\033[0m" << endl;
+            } else if (cmd == "userdel") {
+                //  delete a user
+                //  log4lib(username, "userdel", dir_location);
+                //  students.userdel(dir_location);
+                cout << "\033[41mERR! You must be a administrator to use this command.\033[0m" << endl;
             } else if (cmd == "lsmybook") {
                 //  list books i borrowed
                 log4lib(username, "lsmybook", dir_location);

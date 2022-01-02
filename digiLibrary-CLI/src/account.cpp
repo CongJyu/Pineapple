@@ -108,7 +108,7 @@ void Account::resetpwd(string dir) {
     }
     countline.close();
     Account * users = new Account [n];
-    for (int i = 0; i < n; i++) {
+    for (long long i = 0; i < n; i++) {
         resetp >> users[i].username >> users[i].password;
         if (users[i].username == someone) {
             mark = i;
