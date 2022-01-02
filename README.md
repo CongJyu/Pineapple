@@ -129,4 +129,8 @@ Not build yet.
 
 ### Windows
 
-Not test yet. Not build yet.
+Build succeeded.
+
+## Thanks
+
+The Windows version of this Library-CLI is modified by [DavidKwan](https://github.com/DavidKwan3106).
