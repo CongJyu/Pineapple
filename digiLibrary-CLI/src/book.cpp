@@ -54,7 +54,7 @@ void Book::version() {
     }
     cout << endl;
     //  show the name of this program
-    cout << "🍍 digiLibrary v1.4.3" << endl;
+    cout << "🍍 digiLibrary v1.4.7" << endl;
     //  show the version of this program
     cout << "First Build Dec 2021. Current Build Jan 2022." << endl;
     //  show the author of this program
