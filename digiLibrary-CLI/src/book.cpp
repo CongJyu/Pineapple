@@ -19,12 +19,14 @@ void Book::help() {
         cout << "\033[36m-\033[0m";
     }
     cout << endl;
-    cout << "Basic commands:" << endl;
+    //  these help messages can be moved into a file to store
+    //  TODO(Rain Chen): move these help tips to a file.
+    cout << "Basic Commands:" << endl;
     cout << "    'version' -- show current version." << endl;
     cout << "    'help' -- get help." << endl;
     cout << "    'quit' -- quit digiLibrary." << endl;
-    cout << "Account settings:" << endl;
-    cout << "    'passwd <new username> <new password>' -- change and set your password." << endl;
+    cout << "Account Settings:" << endl;
+    cout << "    'passwd <New Username> <New Password>' -- change and set your password." << endl;
     cout << "    'lsuser' -- list all users." << endl;
     cout << "    'useradd' -- add a user." << endl;
     cout << "    'userdel <Username>' -- delete a user." << endl;
@@ -33,7 +35,8 @@ void Book::help() {
     cout << "    'lsbook' -- list all the books." << endl;
     cout << "    'addbook <Bookname> <ISBN/ISSN> <Author> <Type> <Number>' -- add a book to library." << endl;
     cout << "    'delbook <Bookname>' -- delete a book from library." << endl;
-    cout << "    'search <content>' -- search a book from library." << endl;
+    cout << "    'search <Content>' -- search a book from library." << endl;
+    cout << "    'stype <Type>' -- search type." << endl;
     cout << "    'borrow <ISBN/ISSN>' -- borrow a book from library." << endl;
     cout << "    'return <ISBN/ISSN>' -- return a book to library." << endl;
     cout << "    'lsmybook' -- list the books you've borrowed." << endl;
@@ -54,11 +57,11 @@ void Book::version() {
     }
     cout << endl;
     //  show the name of this program
-    cout << "🍍 digiLibrary v1.4.7" << endl;
+    cout << "🍍 digiLibrary v1.5.0" << endl << endl;
     //  show the version of this program
     cout << "First Build Dec 2021. Current Build Jan 2022." << endl;
     //  show the author of this program
-    cout << "By Rain Chen. Test by Zheng ShuYao." << endl;
+    cout << "By Rain Chen and Zheng ShuYao." << endl;
     for (int i = 0; i < 80; i++) {
         cout << "\033[36m-\033[0m";
     }
@@ -341,5 +344,56 @@ void Book::returnbook(string dir, string username) {
     }
     rtb.close();
     cout << "🍍 \033[36mDone. Return '" << returnb << "' to library.\033[0m" << endl;
+    return;
+}
+//  search for type
+void Book::stype(string dir) {
+    string target_type;
+    cin >> target_type;
+    cout << "Loading books..." << endl;
+    //  count lines
+    ifstream countline;
+    countline.open(dir + "/books.txt", ios::in);
+    string temp;
+    long long n = 0;
+    while (getline(countline, temp, '\n')) {
+        n++;
+    }
+    countline.close();
+    //  st stands for search type
+    fstream st;
+    st.open(dir + "/books.txt");
+    Book * bks = new Book [n];
+    long long j = 0;
+    while (st.eof() != 1) {
+        st >> bks[j].name
+        >> bks[j].isbn
+        >> bks[j].author
+        >> bks[j].type
+        >> bks[j].num;
+        j++;
+    }
+    n = j - 1;
+    for (long long i = 0; i < 80; i++) {
+        cout << "\033[36m-\033[0m";
+    }
+    cout << endl;
+    long long cnt = 0;
+    for (long long i = 0; i < n; i++) {
+        if (bks[i].type.find(target_type) != string::npos) {
+            cout << bks[i].name << " "
+            << bks[i].isbn << " "
+            << bks[i].author << " "
+            << bks[i].type << " "
+            << bks[i].num << endl;
+            cnt++;
+        }
+    }
+    for (long long i = 0; i < 80; i++) {
+        cout << "\033[36m-\033[0m";
+    }
+    cout << endl;
+    cout << "🍍 \033[36mDone. All '" << target_type << "' type books listed. "
+    << cnt << " book(s) in total.\033[0m" << endl;
     return;
 }

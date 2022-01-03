@@ -128,6 +128,10 @@ int main() {
                 //  log4lib(username, "return", dir_location);
                 //  control.returnbook(dir_location, username);
                 cout << "\033[41mERR! Administrator cannot borrow or return books.\033[0m" << endl;
+            } else if (cmd == "stype") {
+                //  search books by types
+                log4lib(username, "stype", dir_location);
+                control.stype(dir_location);
             } else {
                 //  unknown commands
                 cout << "\033[41mERR! Unknown command '" << cmd << "'.\033[0m" << endl;
@@ -238,6 +242,10 @@ int main() {
                 //  borrow a book from library
                 log4lib(username, "return", dir_location);
                 stu.returnbook(dir_location, username);
+            } else if (cmd == "stype") {
+                //  search books by types
+                log4lib(username, "stype", dir_location);
+                stu.stype(dir_location);
             } else {
                 //  unknown commands
                 cout << "\033[41mERR! Unknown command '" << cmd << "'.\033[0m" << endl;

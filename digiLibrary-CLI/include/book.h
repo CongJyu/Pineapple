@@ -33,6 +33,7 @@ public:
     void version();
     void lsbook(string);
     void search(string);
+    void stype(string);
     void addbook(string);
     void delbook(string);
     void lsborrow(string);

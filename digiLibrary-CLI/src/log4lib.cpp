@@ -60,6 +60,8 @@ int log4lib(string user, string command, string data) {
         looog << "[" << tmp << "] " << "'" << user << "' borrow a book." << endl;
     } else if (command == "return") {
         looog << "[" << tmp << "] " << "'" << user << "' return a book." << endl;
+    } else if (command == "stype") {
+        looog << "[" << tmp << "] " << "'" << user << "' search books by types." << endl;
     }
     //  close log file
     looog.close();
