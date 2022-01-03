@@ -4,11 +4,11 @@
 //  2021-12-31 Rain Chen
 
 #include "../include/log4lib.h"
-
+//  namespace
 using namespace std;
-
+//  output log messages
 fstream looog;
-
+//  log module function
 int log4lib(string user, string command, string data) {
     //  get time
     time_t timep;
@@ -24,6 +24,7 @@ int log4lib(string user, string command, string data) {
         ofstream outfile(logdata);
         outfile.close();
     }
+    //  open log file
     looog.open(logdata, ios::app);
     if (command == "first") {
         looog << "[" << tmp << "] " << "'" << user << "' login." << endl;
@@ -60,6 +61,7 @@ int log4lib(string user, string command, string data) {
     } else if (command == "return") {
         looog << "[" << tmp << "] " << "'" << user << "' return a book." << endl;
     }
+    //  close log file
     looog.close();
     return 0;
 }

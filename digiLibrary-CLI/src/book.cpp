@@ -14,6 +14,7 @@ Book::~Book() {}
 //  help command
 void Book::help() {
     cout << "🍍 Welcome to digiLibrary. See the commands below:" << endl;
+    //  this is the boarder line
     for (int i = 0; i < 80; i++) {
         cout << "\033[36m-\033[0m";
     }
@@ -39,6 +40,7 @@ void Book::help() {
     cout << "    'lsborrow <Username>' -- see a user's borrowed books." << endl;
     cout << "Program Management:" << endl;
     cout << "    'clearlog' -- clear program log information." << endl;
+    //  this is also a boarder line
     for (int i = 0; i < 80; i++) {
         cout << "\033[36m-\033[0m";
     }
@@ -51,9 +53,12 @@ void Book::version() {
         cout << "\033[36m-\033[0m";
     }
     cout << endl;
+    //  show the name of this program
     cout << "🍍 digiLibrary v1.4.3" << endl;
-    cout << "Build Dec 2021." << endl;
-    cout << "Made by Rain Chen and Zheng ShuYao." << endl;
+    //  show the version of this program
+    cout << "First Build Dec 2021. Current Build Jan 2022." << endl;
+    //  show the author of this program
+    cout << "By Rain Chen. Test by Zheng ShuYao." << endl;
     for (int i = 0; i < 80; i++) {
         cout << "\033[36m-\033[0m";
     }
@@ -62,7 +67,9 @@ void Book::version() {
 }
 //  quit
 void Book::quit() {
+    //  show goodbye message
     cout << "🍍 \033[36mGoodbye!\033[0m" << endl;
+    //  return to main function and quit while-loop
     return;
 }
 //  list all books
@@ -95,12 +102,15 @@ void Book::search(string dir) {
     }
     cout << endl;
     fstream list;
+    //  open book list file
     list.open(dir + "/books.txt");
+    //  read and display book lists: a line each time
     while (getline(list, bookline)) {
         if (bookline.find(content) != string::npos) {
             cout << bookline << endl;
         }
     }
+    //  close book library file
     list.close();
     for (int i = 0; i < 80; i++) {
         cout << "\033[36m-\033[0m";
@@ -126,6 +136,7 @@ void Book::addbook(string dir) {
     << newbookauthor << " "
     << newbooktype << " "
     << newbooknumber << endl;
+    //  close book list file
     add.close();
     cout << "🍍 " << "\033[36mDone. The book '" << newbookname << "' is added.\033[0m" << endl;
     return;
@@ -136,6 +147,7 @@ void Book::delbook(string dir) {
     cin >> targetbook;
     fstream del;
     del.open(dir + "/books.txt");
+    //  count the book list's lines
     ifstream countline;
     countline.open(dir + "/books.txt", ios::in);
     string temp;
@@ -144,6 +156,7 @@ void Book::delbook(string dir) {
         n++;
     }
     countline.close();
+    //  create a dynamic array
     Book * bks = new Book [n];
     long long j = 0;
     while (del.eof() != 1) {
@@ -157,7 +170,7 @@ void Book::delbook(string dir) {
     n = j - 1;
     del.close();
     del.open(dir + "/books.txt", ios::out|ios::trunc);
-    for (int i = 0; i < n; i++) {
+    for (long long i = 0; i < n; i++) {
         if (bks[i].name == targetbook) {
             continue;
         }
@@ -201,11 +214,11 @@ void Book::lsborrow(string dir) {
     n = j - 1;
     borrow.close();
     cout << "Current books '" << targetuser << "'ve borrowed:" << endl;
-    for (int i = 0; i < 80; i++) {
+    for (long long i = 0; i < 80; i++) {
         cout << "\033[36m-\033[0m";
     }
     cout << endl;
-    for (int i = 0; i < n; i++) {
+    for (long long i = 0; i < n; i++) {
         cout << bks[i].name << " "
         << bks[i].isbn << " "
         << bks[i].author << " "
@@ -213,7 +226,7 @@ void Book::lsborrow(string dir) {
         << bks[i].num;
         cout << endl;
     }
-    for (int i = 0; i < 80; i++) {
+    for (long long i = 0; i < 80; i++) {
         cout << "\033[36m-\033[0m";
     }
     cout << endl;
@@ -234,7 +247,7 @@ void Book::lsmybook(string dir, string username) {
         cout << bookline << endl;
     }
     list.close();
-    for (int i = 0; i < 80; i++) {
+    for (long long i = 0; i < 80; i++) {
         cout << "\033[36m-\033[0m";
     }
     cout << endl;
@@ -270,7 +283,7 @@ void Book::borrow(string dir, string username) {
     bor.close();
     string userpath = dir + "/" + username + ".digidata";
     bor.open(userpath, ios_base::app);
-    for (int i = 0; i < n; i++) {
+    for (long long i = 0; i < n; i++) {
         if (bks[i].isbn == borrowbook) {
             bor << bks[i].name << " "
             << bks[i].isbn << " "
@@ -289,6 +302,7 @@ void Book::borrow(string dir, string username) {
 void Book::returnbook(string dir, string username) {
     string returnb;
     cin >> returnb;
+    //  object "rtb" stands for "return books"
     fstream rtb;
     string userpath = dir + "/" + username + ".digidata";
     rtb.open(userpath);
@@ -329,4 +343,3 @@ void Book::returnbook(string dir, string username) {
     cout << "🍍 \033[36mDone. Return '" << returnb << "' to library.\033[0m" << endl;
     return;
 }
-

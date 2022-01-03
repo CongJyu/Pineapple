@@ -74,7 +74,7 @@ void Account::passwd(string dir) {
 //  list school users
 void Account::lsuser(string dir) {
     cout << "Loading..." << endl;
-    for (int i = 0; i < 80; i++) {
+    for (long long i = 0; i < 80; i++) {
         cout << "\033[36m-\033[0m";
     }
     cout << endl;
@@ -84,7 +84,7 @@ void Account::lsuser(string dir) {
         cout << userline << endl;
     }
     list.close();
-    for (int i = 0; i < 80; i++) {
+    for (long long i = 0; i < 80; i++) {
         cout << "\033[36m-\033[0m";
     }
     cout << endl;
