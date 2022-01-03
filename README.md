@@ -52,6 +52,13 @@ If you find something go wrong, press `⌃Control` + `C` to terminate the sessio
 
 ## Updates
 
+### 2022-01-03
+
+New version.
+
+- Add a function so that you can search a certain type of books.
+- Fixed some bugs.
+
 ### 2022-01-01
 
 New version. Rebuilt whole project.
