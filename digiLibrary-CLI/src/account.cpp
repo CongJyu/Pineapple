@@ -80,15 +80,17 @@ void Account::lsuser(string dir) {
     cout << endl;
     fstream list;
     list.open(dir + "/nuserinfo.digilib");
+    long long cnt = 0;
     while (getline(list, userline)) {
         cout << userline << endl;
+        cnt++;
     }
     list.close();
     for (long long i = 0; i < 80; i++) {
         cout << "\033[36m-\033[0m";
     }
     cout << endl;
-    cout << "🍍 \033[36mDone. All users listed.\033[0m" << endl;
+    cout << "🍍 \033[36mDone. All total " << cnt << " user(s) listed.\033[0m" << endl;
     return;
 }
 //  reset someone's password

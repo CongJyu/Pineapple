@@ -132,6 +132,10 @@ int main() {
                 //  search books by types
                 log4lib(username, "stype", dir_location);
                 control.stype(dir_location);
+            } else if (cmd == "import") {
+                //  search books by types
+                log4lib(username, "import", dir_location);
+                control.import(dir_location);
             } else {
                 //  unknown commands
                 cout << "\033[41mERR! Unknown command '" << cmd << "'.\033[0m" << endl;

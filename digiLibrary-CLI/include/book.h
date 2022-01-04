@@ -13,18 +13,11 @@
 #include <string>
 #include <algorithm>
 #include <filesystem>
-//  #include <unistd.h>
+#include <unistd.h>
 
 using namespace std;
 
 class Book {
-private:
-    string name;
-    string isbn;
-    string author;
-    string type;
-    long long num;
-    string bookline;
 public:
     Book();
     ~Book();
@@ -40,6 +33,14 @@ public:
     void lsmybook(string, string);
     void borrow(string, string);
     void returnbook(string, string);
+    void import(string);
+private:
+    string name;
+    string isbn;
+    string author;
+    string type;
+    long long num;
+    string bookline;
 };
 
 #endif

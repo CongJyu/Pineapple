@@ -13,17 +13,11 @@
 #include <string>
 #include <algorithm>
 #include <filesystem>
-//  #include <unistd.h>
+#include <unistd.h>
 
 using namespace std;
 
 class Account {
-private:
-    string username;
-    string password;
-    string temp_username;
-    string temp_password;
-    string userline;
 public:
     Account();
     ~Account();
@@ -35,6 +29,12 @@ public:
     void clog(string);
     void useradd(string);
     void userdel(string);
+private:
+    string username;
+    string password;
+    string temp_username;
+    string temp_password;
+    string userline;
 };
 
 #endif

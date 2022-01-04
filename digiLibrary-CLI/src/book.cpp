@@ -41,6 +41,7 @@ void Book::help() {
     cout << "    'return <ISBN/ISSN>' -- return a book to library." << endl;
     cout << "    'lsmybook' -- list the books you've borrowed." << endl;
     cout << "    'lsborrow <Username>' -- see a user's borrowed books." << endl;
+    cout << "    'import <New Book List> -- import a pile of books." << endl;
     cout << "Program Management:" << endl;
     cout << "    'clearlog' -- clear program log information." << endl;
     //  this is also a boarder line
@@ -84,15 +85,17 @@ void Book::lsbook(string dir) {
     cout << endl;
     fstream list;
     list.open(dir + "/books.txt");
+    long long cnt = 0;
     while (getline(list, bookline)) {
         cout << bookline << endl;
+        cnt++;
     }
     list.close();
     for (int i = 0; i < 80; i++) {
         cout << "\033[36m-\033[0m";
     }
     cout << endl;
-    cout << "🍍 \033[36mDone. All books listed.\033[0m" << endl;
+    cout << "🍍 \033[36mDone. All " << cnt << " book(s) listed.\033[0m" << endl;
     return;
 }
 //  search books
@@ -108,9 +111,11 @@ void Book::search(string dir) {
     //  open book list file
     list.open(dir + "/books.txt");
     //  read and display book lists: a line each time
+    long long cnt = 0;
     while (getline(list, bookline)) {
         if (bookline.find(content) != string::npos) {
             cout << bookline << endl;
+            cnt++;
         }
     }
     //  close book library file
@@ -119,7 +124,7 @@ void Book::search(string dir) {
         cout << "\033[36m-\033[0m";
     }
     cout << endl;
-    cout << "🍍 \033[36mDone. Books listed.\033[0m" << endl;
+    cout << "🍍 \033[36mDone. " << cnt << " book(s) found.\033[0m" << endl;
     return;
 }
 //  add a book
@@ -395,5 +400,60 @@ void Book::stype(string dir) {
     cout << endl;
     cout << "🍍 \033[36mDone. All '" << target_type << "' type books listed. "
     << cnt << " book(s) in total.\033[0m" << endl;
+    return;
+}
+//  import a pile of books
+void Book::import(string dir) {
+    //  enter the path of file
+    string new_book_dir;
+    cin >> new_book_dir;
+    cout << "Ensure your data file path, for example, ";
+    cout << "\"/Users/rainchen/Documents/newbooklist.txt\": ";
+    cout << new_book_dir << endl;
+    cout << "(Y/n): \033[35m";
+    char sure;
+    cin >> sure;
+    cout << "\033[0m";
+    if (sure == 'Y') {
+        fstream imp;    //  import object
+        //  countline
+        ifstream countline;
+        countline.open(new_book_dir, ios::in);
+        string temp;
+        long long n = 0;
+        while (getline(countline, temp, '\n')) {
+            n++;
+        }
+        countline.close();
+        imp.open(new_book_dir);
+        Book * bks = new Book [n];
+        long long j = 0;
+        while (imp.eof() != 1) {
+            imp >> bks[j].name
+            >> bks[j].isbn
+            >> bks[j].author
+            >> bks[j].type
+            >> bks[j].num;
+            j++;
+        }
+        n = j - 1;
+        imp.close();
+        imp.open(dir + "/books.txt", ios::app);
+        for (long long i = 0; i < n; i++) {
+            imp << bks[i].name << " "
+            << bks[i].isbn << " "
+            << bks[i].author << " "
+            << bks[i].type << " "
+            << bks[i].num << endl;
+        }
+        imp.close();
+        cout << "🍍 \033[36mDone. Books imported.\033[0m" << endl;
+    } else if (sure == 'n') {
+        cout << "🍍 \033[36mOperation cancelled.\033[0m" << endl;
+        return;
+    } else {
+        cout << "Failed." << endl;
+        return;
+    }
     return;
 }
