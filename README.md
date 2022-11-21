@@ -1,5 +1,3 @@
-![Pineapple](https://socialify.git.ci/CongJyu/Pineapple/image?description=1&font=Bitter&forks=1&issues=1&language=1&name=1&owner=1&pattern=Brick%20Wall&pulls=1&stargazers=1&theme=Light)
-
 # Pineapple
 
 A library management CLI
