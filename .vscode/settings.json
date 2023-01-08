@@ -2,7 +2,10 @@
     "files.associations": {
         "ostream": "cpp",
         "iostream": "cpp",
+        "iosfwd": "cpp",
+        "filesystem": "cpp",
         "__bit_reference": "cpp",
+        "__bits": "cpp",
         "__config": "cpp",
         "__debug": "cpp",
         "__errc": "cpp",
@@ -42,7 +45,6 @@
         "initializer_list": "cpp",
         "iomanip": "cpp",
         "ios": "cpp",
-        "iosfwd": "cpp",
         "istream": "cpp",
         "iterator": "cpp",
         "limits": "cpp",
@@ -64,8 +66,6 @@
         "typeinfo": "cpp",
         "unordered_map": "cpp",
         "utility": "cpp",
-        "vector": "cpp",
-        "__bits": "cpp",
-        "filesystem": "cpp"
+        "vector": "cpp"
     }
 }
