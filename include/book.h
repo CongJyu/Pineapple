@@ -34,6 +34,7 @@ public:
     void borrow(string, string);
     void returnbook(string, string);
     void import(string);
+
 private:
     string name;
     string isbn;

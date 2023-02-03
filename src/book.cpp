@@ -8,9 +8,11 @@
 //  namespace
 using namespace std;
 //  default constructor
-Book::Book() {}
+Book::Book() {
+}
 //  default destructor
-Book::~Book() {}
+Book::~Book() {
+}
 //  help command
 void Book::help() {
     cout << "🍍 Welcome to digiLibrary. See the commands below:" << endl;
@@ -131,22 +133,15 @@ void Book::search(string dir) {
 void Book::addbook(string dir) {
     string newbookname, newbookisbn, newbookauthor;
     string newbooktype, newbooknumber;
-    cin >> newbookname
-    >> newbookisbn
-    >> newbookauthor
-    >> newbooktype
-    >> newbooknumber;
+    cin >> newbookname >> newbookisbn >> newbookauthor >> newbooktype >> newbooknumber;
     fstream add;
     //  open book list
     add.open(dir + "/books.txt", ios::app);
-    add << newbookname << " "
-    << newbookisbn << " "
-    << newbookauthor << " "
-    << newbooktype << " "
-    << newbooknumber << endl;
+    add << newbookname << " " << newbookisbn << " " << newbookauthor << " " << newbooktype << " " << newbooknumber << endl;
     //  close book list file
     add.close();
-    cout << "🍍 " << "\033[36mDone. The book '" << newbookname << "' is added.\033[0m" << endl;
+    cout << "🍍 "
+         << "\033[36mDone. The book '" << newbookname << "' is added.\033[0m" << endl;
     return;
 }
 //  delete a book
@@ -165,32 +160,24 @@ void Book::delbook(string dir) {
     }
     countline.close();
     //  create a dynamic array
-    Book * bks = new Book [n];
+    Book *bks = new Book[n];
     long long j = 0;
     while (del.eof() != 1) {
-        del >> bks[j].name
-        >> bks[j].isbn
-        >> bks[j].author
-        >> bks[j].type
-        >> bks[j].num;
+        del >> bks[j].name >> bks[j].isbn >> bks[j].author >> bks[j].type >> bks[j].num;
         j++;
     }
     n = j - 1;
     del.close();
-    del.open(dir + "/books.txt", ios::out|ios::trunc);
+    del.open(dir + "/books.txt", ios::out | ios::trunc);
     for (long long i = 0; i < n; i++) {
         if (bks[i].name == targetbook) {
             continue;
         }
-        del << bks[i].name << " "
-        << bks[i].isbn << " "
-        << bks[i].author << " "
-        << bks[i].type << " "
-        << bks[i].num;
+        del << bks[i].name << " " << bks[i].isbn << " " << bks[i].author << " " << bks[i].type << " " << bks[i].num;
         del << endl;
     }
     del.close();
-    delete [] bks;
+    delete[] bks;
     cout << "🍍 \033[36mDone! '" << targetbook << "' is deleted.\033[0m" << endl;
     return;
 }
@@ -209,14 +196,10 @@ void Book::lsborrow(string dir) {
         n++;
     }
     countline.close();
-    Book * bks = new Book [n];
+    Book *bks = new Book[n];
     long long j = 0;
     while (borrow.eof() != 1) {
-        borrow >> bks[j].name
-        >> bks[j].isbn
-        >> bks[j].author
-        >> bks[j].type
-        >> bks[j].num;
+        borrow >> bks[j].name >> bks[j].isbn >> bks[j].author >> bks[j].type >> bks[j].num;
         j++;
     }
     n = j - 1;
@@ -227,18 +210,14 @@ void Book::lsborrow(string dir) {
     }
     cout << endl;
     for (long long i = 0; i < n; i++) {
-        cout << bks[i].name << " "
-        << bks[i].isbn << " "
-        << bks[i].author << " "
-        << bks[i].type << " "
-        << bks[i].num;
+        cout << bks[i].name << " " << bks[i].isbn << " " << bks[i].author << " " << bks[i].type << " " << bks[i].num;
         cout << endl;
     }
     for (long long i = 0; i < 80; i++) {
         cout << "\033[36m-\033[0m";
     }
     cout << endl;
-    delete [] bks;
+    delete[] bks;
     cout << "🍍 \033[36mDone. All '" << targetuser << "''s books are listed.\033[0m" << endl;
     return;
 }
@@ -277,14 +256,10 @@ void Book::borrow(string dir, string username) {
     }
     countline.close();
     bor.open(dir + "/books.txt");
-    Book * bks = new Book [n];
+    Book *bks = new Book[n];
     long long j = 0;
     while (bor.eof() != 1) {
-        bor >> bks[j].name
-        >> bks[j].isbn
-        >> bks[j].author
-        >> bks[j].type
-        >> bks[j].num;
+        bor >> bks[j].name >> bks[j].isbn >> bks[j].author >> bks[j].type >> bks[j].num;
         j++;
     }
     n = j - 1;
@@ -293,15 +268,11 @@ void Book::borrow(string dir, string username) {
     bor.open(userpath, ios_base::app);
     for (long long i = 0; i < n; i++) {
         if (bks[i].isbn == borrowbook) {
-            bor << bks[i].name << " "
-            << bks[i].isbn << " "
-            << bks[i].author << " "
-            << bks[i].type << " "
-            << bks[i].num << endl;
+            bor << bks[i].name << " " << bks[i].isbn << " " << bks[i].author << " " << bks[i].type << " " << bks[i].num << endl;
             break;
         }
     }
-    delete [] bks;
+    delete[] bks;
     bor.close();
     cout << "🍍 \033[36mDone. Borrow '" << borrowbook << "' from library.\033[0m" << endl;
     return;
@@ -323,28 +294,20 @@ void Book::returnbook(string dir, string username) {
         n++;
     }
     countline.close();
-    Book * bks = new Book [n];
+    Book *bks = new Book[n];
     long long j = 0;
     while (rtb.eof() != 1) {
-        rtb >> bks[j].name
-        >> bks[j].isbn
-        >> bks[j].author
-        >> bks[j].type
-        >> bks[j].num;
+        rtb >> bks[j].name >> bks[j].isbn >> bks[j].author >> bks[j].type >> bks[j].num;
         j++;
     }
     n = j - 1;
     rtb.close();
-    rtb.open(userpath, ios::out|ios::trunc);
+    rtb.open(userpath, ios::out | ios::trunc);
     for (long long i = 0; i < n; i++) {
         if (bks[i].isbn == returnb) {
             continue;
         } else {
-            rtb << bks[i].name << " "
-            << bks[i].isbn << " "
-            << bks[i].author << " "
-            << bks[i].type << " "
-            << bks[i].num << endl;
+            rtb << bks[i].name << " " << bks[i].isbn << " " << bks[i].author << " " << bks[i].type << " " << bks[i].num << endl;
         }
     }
     rtb.close();
@@ -368,14 +331,10 @@ void Book::stype(string dir) {
     //  st stands for search type
     fstream st;
     st.open(dir + "/books.txt");
-    Book * bks = new Book [n];
+    Book *bks = new Book[n];
     long long j = 0;
     while (st.eof() != 1) {
-        st >> bks[j].name
-        >> bks[j].isbn
-        >> bks[j].author
-        >> bks[j].type
-        >> bks[j].num;
+        st >> bks[j].name >> bks[j].isbn >> bks[j].author >> bks[j].type >> bks[j].num;
         j++;
     }
     n = j - 1;
@@ -386,11 +345,7 @@ void Book::stype(string dir) {
     long long cnt = 0;
     for (long long i = 0; i < n; i++) {
         if (bks[i].type.find(target_type) != string::npos) {
-            cout << bks[i].name << " "
-            << bks[i].isbn << " "
-            << bks[i].author << " "
-            << bks[i].type << " "
-            << bks[i].num << endl;
+            cout << bks[i].name << " " << bks[i].isbn << " " << bks[i].author << " " << bks[i].type << " " << bks[i].num << endl;
             cnt++;
         }
     }
@@ -398,8 +353,7 @@ void Book::stype(string dir) {
         cout << "\033[36m-\033[0m";
     }
     cout << endl;
-    cout << "🍍 \033[36mDone. All '" << target_type << "' type books listed. "
-    << cnt << " book(s) in total.\033[0m" << endl;
+    cout << "🍍 \033[36mDone. All '" << target_type << "' type books listed. " << cnt << " book(s) in total.\033[0m" << endl;
     return;
 }
 //  import a pile of books
@@ -415,7 +369,7 @@ void Book::import(string dir) {
     cin >> sure;
     cout << "\033[0m";
     if (sure == 'Y') {
-        fstream imp;    //  import object
+        fstream imp;  //  import object
         //  countline
         ifstream countline;
         countline.open(new_book_dir, ios::in);
@@ -426,25 +380,17 @@ void Book::import(string dir) {
         }
         countline.close();
         imp.open(new_book_dir);
-        Book * bks = new Book [n];
+        Book *bks = new Book[n];
         long long j = 0;
         while (imp.eof() != 1) {
-            imp >> bks[j].name
-            >> bks[j].isbn
-            >> bks[j].author
-            >> bks[j].type
-            >> bks[j].num;
+            imp >> bks[j].name >> bks[j].isbn >> bks[j].author >> bks[j].type >> bks[j].num;
             j++;
         }
         n = j - 1;
         imp.close();
         imp.open(dir + "/books.txt", ios::app);
         for (long long i = 0; i < n; i++) {
-            imp << bks[i].name << " "
-            << bks[i].isbn << " "
-            << bks[i].author << " "
-            << bks[i].type << " "
-            << bks[i].num << endl;
+            imp << bks[i].name << " " << bks[i].isbn << " " << bks[i].author << " " << bks[i].type << " " << bks[i].num << endl;
         }
         imp.close();
         cout << "🍍 \033[36mDone. Books imported.\033[0m" << endl;

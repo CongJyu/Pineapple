@@ -6,9 +6,11 @@
 #include "../include/account.h"
 using namespace std;
 //  default constructor
-Account::Account() {}
+Account::Account() {
+}
 //  default destructor
-Account::~Account() {}
+Account::~Account() {
+}
 //  login process
 string Account::login(string accountdata) {
     cout << "USERNAME: \033[35m";
@@ -109,7 +111,7 @@ void Account::resetpwd(string dir) {
         n++;
     }
     countline.close();
-    Account * users = new Account [n];
+    Account *users = new Account[n];
     for (long long i = 0; i < n; i++) {
         resetp >> users[i].username >> users[i].password;
         if (users[i].username == someone) {
@@ -120,20 +122,19 @@ void Account::resetpwd(string dir) {
     if (mark == -1) {
         cout << "🍍 \033[36mThere is no user '" << someone << "'. Done.\033[0m" << endl;
     } else {
-        resetp.open(dir + "/nuserinfo.digilib", ios::out|ios::trunc);
+        resetp.open(dir + "/nuserinfo.digilib", ios::out | ios::trunc);
         for (long long i = 0; i < n; i++) {
             if (i == mark) {
-                resetp << users[i].username
-                << " " << "123456" << endl;
-            } else {
                 resetp << users[i].username << " "
-                << users[i].password << endl;
+                       << "123456" << endl;
+            } else {
+                resetp << users[i].username << " " << users[i].password << endl;
             }
         }
         resetp.close();
         cout << "🍍 \033[36m'" << someone << "' password reseted to default. Done.\033[0m" << endl;
     }
-    delete [] users;
+    delete[] users;
     return;
 }
 //  clear log
@@ -147,7 +148,7 @@ void Account::clog(string dir) {
         ofstream outfile(dir + "/digi.log");
         outfile.close();
     }
-    cclog.open(dir + "/digi.log", ios::out|ios::trunc);
+    cclog.open(dir + "/digi.log", ios::out | ios::trunc);
     cclog.close();
     cout << "🍍 \033[36mDone. All log info cleared.\033[0m" << endl;
     return;
@@ -203,7 +204,7 @@ void Account::userdel(string dir) {
         countline.close();
         dele.open(dir + "/nuserinfo.digilib");
         long long mark = -1;
-        Account * uss = new Account [n];
+        Account *uss = new Account[n];
         for (long long i = 0; i < n; i++) {
             dele >> uss[i].username >> uss[i].password;
             if (uss[i].username == targetuser) {
@@ -214,7 +215,7 @@ void Account::userdel(string dir) {
         if (mark == -1) {
             cout << "🍍 \033[36mThere is no user '" << targetuser << "'. Done.\033[0m" << endl;
         } else {
-            dele.open(dir + "/nuserinfo.digilib", ios::out|ios::trunc);
+            dele.open(dir + "/nuserinfo.digilib", ios::out | ios::trunc);
             for (long long i = 0; i < n; i++) {
                 if (i == mark) {
                     continue;
@@ -225,8 +226,7 @@ void Account::userdel(string dir) {
             dele.close();
             cout << "🍍 \033[36mDone. '" << targetuser << "' is deleted.\033[0m" << endl;
         }
-        delete [] uss;
+        delete[] uss;
     }
     return;
 }
-

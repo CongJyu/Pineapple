@@ -36,7 +36,9 @@ int main() {
             ofstream outfile(accountdata);
             account.close();
             account.open(accountdata);
-            account << "admin" << " " << "123456" << endl;
+            account << "admin"
+                    << " "
+                    << "123456" << endl;
             account.close();
             cout << "Restored admin account...\033[36mDone!\033[0m" << endl;
             cout << "Please login." << endl;

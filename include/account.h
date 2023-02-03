@@ -29,6 +29,7 @@ public:
     void clog(string);
     void useradd(string);
     void userdel(string);
+
 private:
     string username;
     string password;

@@ -27,43 +27,62 @@ int log4lib(string user, string command, string data) {
     //  open log file
     looog.open(logdata, ios::app);
     if (command == "first") {
-        looog << "[" << tmp << "] " << "'" << user << "' login." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' login." << endl;
     } else if (command == "quit") {
-        looog << "[" << tmp << "] " << "'" << user << "' quit." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' quit." << endl;
     } else if (command == "version") {
-        looog << "[" << tmp << "] " << "'" << user << "' show version." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' show version." << endl;
     } else if (command == "passwd") {
-        looog << "[" << tmp << "] " << "'" << user << "' change password." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' change password." << endl;
     } else if (command == "lsbook") {
-        looog << "[" << tmp << "] " << "'" << user << "' list books." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' list books." << endl;
     } else if (command == "search") {
-        looog << "[" << tmp << "] " << "'" << user << "' search books." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' search books." << endl;
     } else if (command == "lsuser") {
-        looog << "[" << tmp << "] " << "'" << user << "' list users." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' list users." << endl;
     } else if (command == "resetpwd") {
-        looog << "[" << tmp << "] " << "'" << user << "' reset someone's password." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' reset someone's password." << endl;
     } else if (command == "addbook") {
-        looog << "[" << tmp << "] " << "'" << user << "' add a book." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' add a book." << endl;
     } else if (command == "clearlog") {
-        looog << "[" << tmp << "] " << "'" << user << "' clear log." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' clear log." << endl;
     } else if (command == "delbook") {
-        looog << "[" << tmp << "] " << "'" << user << "' remove a book." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' remove a book." << endl;
     } else if (command == "lsborrow") {
-        looog << "[" << tmp << "] " << "'" << user << "' see someone's borrowed books." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' see someone's borrowed books." << endl;
     } else if (command == "useradd") {
-        looog << "[" << tmp << "] " << "'" << user << "' add a user." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' add a user." << endl;
     } else if (command == "userdel") {
-        looog << "[" << tmp << "] " << "'" << user << "' remove a user." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' remove a user." << endl;
     } else if (command == "lsmybook") {
-        looog << "[" << tmp << "] " << "'" << user << "' list borrowed books." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' list borrowed books." << endl;
     } else if (command == "borrow") {
-        looog << "[" << tmp << "] " << "'" << user << "' borrow a book." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' borrow a book." << endl;
     } else if (command == "return") {
-        looog << "[" << tmp << "] " << "'" << user << "' return a book." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' return a book." << endl;
     } else if (command == "stype") {
-        looog << "[" << tmp << "] " << "'" << user << "' search books by types." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' search books by types." << endl;
     } else if (command == "import") {
-        looog << "[" << tmp << "] " << "'" << user << "' import a pile of books." << endl;
+        looog << "[" << tmp << "] "
+              << "'" << user << "' import a pile of books." << endl;
     }
     //  close log file
     looog.close();
