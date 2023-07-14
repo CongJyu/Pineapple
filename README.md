@@ -140,4 +140,4 @@ Build succeeded.
 
 ## Thanks
 
-The Windows version of this Library-CLI is modified by [DavidKwan](https://github.com/DavidKwan3106).
+The Windows version of this Library-CLI is reborned by a M1 Mac user: [DavidKwan](https://github.com/DavidKwan3106).
